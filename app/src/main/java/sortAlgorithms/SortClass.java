@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Random;
 
 public abstract class SortClass {
     protected int size = 0;
@@ -62,6 +63,11 @@ public abstract class SortClass {
      * Method which is responsible for generating data for table of set size
      */
     protected void generateDataForArray(){
+        Random rand = new Random();
+        for (int i = 0; i<size; i++) 
+            array[i] = rand.nextInt();
+        
+
     }
 
     protected int getSize() {
