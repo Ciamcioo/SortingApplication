@@ -6,7 +6,7 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 
-public abstract class sortClass {
+public abstract class SortClass {
     protected int size = 0;
     protected int[] array;
     protected String fileName;
@@ -19,11 +19,10 @@ public abstract class sortClass {
      * @param fileName - provided by the user
      * @throws Exception 
      */
-    protected sortClass(String fileName) throws Exception {
+    protected SortClass(String fileName) throws Exception {
         setFileName(fileName);
         setDataFile();
         readDataFromFile();
-        sortAlgorithm();
     }
 
 
@@ -31,11 +30,10 @@ public abstract class sortClass {
     *  Constructor whicha as a agrument takes size of wanted array, creates the Array and generates data for it.
     * @param size
     */
-    protected sortClass(int size) {
+    protected SortClass(int size) {
         setSize(size);
         createArray();
         generateDataForArray();
-        sortAlgorithm();
     }
 
     /**
