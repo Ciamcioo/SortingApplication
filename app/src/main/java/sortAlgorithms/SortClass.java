@@ -5,7 +5,7 @@ import java.util.Random;
 public abstract class SortClass {
     protected int size = 0;
     protected int[] array = null; 
-    protected String inputDataFailName;
+    protected String inputDataFailName = "";
     protected FileOutputStream resultFile;
 
     /**
@@ -19,7 +19,6 @@ public abstract class SortClass {
         readDataFromFile();
     }
 
-
     /**
     *  Constructor whicha as a agrument takes size of array, then sets the size, creates an array and generates data for it.
     * @param size
@@ -31,8 +30,11 @@ public abstract class SortClass {
     }
 
     /**
-     *  Method is reading data from file and inserting it into array as variable of next memory blocks 
-     * @throws IOException
+     * Method is reading one line at the time and inserting that line into array if an array object exists. 
+     * In case of errors during the file reading function displays the message and line which resulted in an error.
+     * After finish of reading data function closes the stream to the file. 
+     * @throws IOException 
+     * @throws NumberFormatExpection
      */
     private void readDataFromFile()  {
         BufferedReader reader = generatBufferedReader();
@@ -53,6 +55,11 @@ public abstract class SortClass {
         }
     }
 
+    /**
+    *  Method responsible for closing the stream which as arguments takes an closeable object
+    *  When problems occurse method is displaying statment about it and stream of class which was not closed
+    * @param stream - opened stream in program
+    */
     private static void closeStream(Closeable stream) {
         try { 
            stream.close(); 
@@ -62,32 +69,39 @@ public abstract class SortClass {
         } 
     }
 
+    /**
+     * Method responsible for generating reader for a file
+     * @return object of reader
+     */
     private BufferedReader generatBufferedReader() {
         try {
             return new BufferedReader(new FileReader(inputDataFailName));
         } catch(FileNotFoundException e) {
             return null;
         }
-
     }
-    protected abstract void sortAlgorithm(); 
+
 
     /**
-     * Method allocates data for array     
+     *  Method which initializes array variable of a object 
+     * @return created array object
      */
     protected int[] createArray() {
         return new int[size];
     }
 
     /**
-     * Method which is responsible for generating data for table of set size
+     * Method which fills the array with data if the array is not null
      */
     protected void generateDataForArray(){
         Random rand = new Random();
-        for (int i = 0; i<size; i++) 
-            array[i] = rand.nextInt();
-        
+        if (array != null)
+            for (int i = 0; i<size; i++) 
+                array[i] = rand.nextInt();
+    }
 
+    protected void printArray() {
+        System.out.println(array.toString());
     }
 
     protected int getSize() {

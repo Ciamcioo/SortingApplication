@@ -2,6 +2,7 @@ package sortAlgorithms;
 
 public class QuickSort extends SortClass {
     private int pivot;
+    private float floatArray[];
     private String typeOfData;
 
 
@@ -9,9 +10,12 @@ public class QuickSort extends SortClass {
         super(size);
     }
 
-    @Override
-    protected void sortAlgorithm() {
-        // TODO implementaion of algorithm
+    protected QuickSort(String fileName) throws Exception {
+        super(fileName);
+    }
+
+    protected void sortAlgorithm(int left, int right) {
+        int pivot = array[this.pivot];
     }
 
     public int getPivot() {
@@ -21,6 +25,15 @@ public class QuickSort extends SortClass {
     public void setPivot(int pivot) {
         this.pivot = pivot;
     }
+
+    public String getTypeOfData() {
+        return typeOfData;
+    }
+
+    public void setTypeOfData(String typeOfData) {
+        this.typeOfData = typeOfData;
+    }
+
 
 
 
