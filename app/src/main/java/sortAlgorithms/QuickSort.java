@@ -11,10 +11,12 @@ public class QuickSort extends SortClass {
 
     public QuickSort(int size, String pivot) {
         super(size);
+        setPivot(pivot);
     }
 
     public QuickSort(String fileName, String pivot) throws Exception {
         super(fileName);
+        setPivot(pivot);
     }
 
     public QuickSort(int size, String typeOfData, String pivot) {
@@ -25,6 +27,7 @@ public class QuickSort extends SortClass {
         } 
         else 
             printErrorMessage();
+        setPivot(pivot);
         
     }
 
@@ -79,7 +82,7 @@ public class QuickSort extends SortClass {
             while (pivot < this.array[r]) r--;
             while (pivot > this.array[l]) l++;
             if (l < r) {
-                swap(r, l); 
+                swap(array, r, l); 
                 r--;
                 l++;
             }
@@ -88,12 +91,6 @@ public class QuickSort extends SortClass {
                 return r;
             }
         }
-    }
-
-    private void swap(int left, int right) {
-        int tmp = array[left];
-        array[left] = array[right];
-        array[right] = tmp;
     }
 
     public void sortAlgorithms(int left, int right) {

@@ -115,6 +115,12 @@ public abstract class SortClass {
                 array[i] = rand.nextInt();
     }
 
+    protected void swap(int[] tab, int left, int right) {
+        int tmp = array[left];
+        array[left] = array[right];
+        array[right] = tmp;
+    }
+
     protected void printArray() {
         System.out.println(array.toString());
     }
