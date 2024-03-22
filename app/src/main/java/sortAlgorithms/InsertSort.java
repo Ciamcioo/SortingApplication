@@ -1,15 +1,18 @@
 package sortAlgorithms;
 public class InsertSort  extends SortClass{
-    protected InsertSort(String fileName) throws Exception {
+    public InsertSort(String fileName) throws Exception {
         super(fileName);
     }
 
-    protected InsertSort(int size) {
+    public InsertSort(int size) {
         super(size);
     }
 
 
-    protected void sortAlgorithm() {
+    /** 
+     *  Method which implements the alogrithm of insertion sort.
+    */
+    private void sortAlgorithm() {
         for (int i = 1; i < array.length; i++) {
             int key = array[i], j = i;
             while (array[j-1] > key && j > 0) {

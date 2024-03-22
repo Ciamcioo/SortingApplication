@@ -3,21 +3,27 @@ package sortAlgorithms;
 public class ShellSort extends SortClass {
     private int[] copieOfArray;
 
-    protected ShellSort(String fileName) throws Exception {
+    private ShellSort(String fileName) throws Exception {
         super(fileName);
         copieOfArray = array;
     }
 
-    protected ShellSort(int size) {
+    private ShellSort(int size) {
         super(size);
         copieOfArray = array;
     }
 
+    /**
+     * Method implementing shell sroting algorithm with the gap invented by Shell
+     */
     private void shellSortAlgorithm() {
         for (int gap = array.length/2; gap > 0;gap/=2) 
             iterationWithDefineGap(gap);
     }
 
+    /**
+     * Method implementing shell sroting algorithm with the gap invented by Hibbard
+     */
     private void hibbardSortAlgorithm() {
         int gap = 0;
         for (int i = 2; gap != 1; i++) {
@@ -26,6 +32,10 @@ public class ShellSort extends SortClass {
         }
     }
 
+    /**
+     * Method implementing sorthing during one iteration with predefined gap between memeory cells
+     * @param gap - variable which determins the jump between memory cells
+     */
     private void iterationWithDefineGap(int gap) {
         for (int i = array.length; i-gap >= 0; i--)
             if (array[i] < array[i-gap])

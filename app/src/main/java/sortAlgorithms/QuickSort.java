@@ -7,7 +7,7 @@ import java.util.Random;
 public class QuickSort extends SortClass {
     private int pivot;
     private float[] floatArray;
-    private String typeOfData;
+    private String dataType;
 
     public QuickSort(int size, String pivot) {
         super(size);
@@ -19,6 +19,12 @@ public class QuickSort extends SortClass {
         setPivot(pivot);
     }
 
+    /**
+     * Constructor which additonaly enable user to set data type of array
+     * @param size - size of array specified by user
+     * @param typeOfData - array type specified by user
+     * @param pivot  - point on pivot which should be use while sorting specified by user
+    */
     public QuickSort(int size, String typeOfData, String pivot) {
         super(size, !typeOfData.equals("float"));
         if (typeOfData.equals("float")) {
@@ -31,6 +37,13 @@ public class QuickSort extends SortClass {
         
     }
 
+    /**
+     * Consturcot which additionaly take infomration from the user about the type of data contained in file.
+     * @param fileName - name of file from which data should be read
+     * @param typeOfData - type of data stored in file
+     * @param pivot - point on pivot which should be use while sorting specified by user
+     * @throws Exception
+     */
     public QuickSort(String fileName, String typeOfData, String pivot) throws Exception {
         super(fileName, !typeOfData.equals("float"));
         if (typeOfData.equals("float")) 
@@ -40,17 +53,20 @@ public class QuickSort extends SortClass {
         setPivot(pivot);
     }
 
+    /**
+     * Method which reads the data from the file in case user specifies data type as float
+     */
     private void readFloatsFromFile() {
         BufferedReader reader = generatBufferedReader();
         int i = -1;
         try {
             for (; reader.ready() && i < size; i++) { 
-                if (array == null) {
+                if (floatArray == null) {
                     setSize(Integer.parseInt(reader.readLine()));
                     floatArray = generateFloatArray();
                     i++;
                 }
-                array[i] = Integer.parseInt(reader.readLine());
+                floatArray[i] = Float.parseFloat(reader.readLine());
             }
         } catch (NumberFormatException | IOException e) {
             System.out.println("Problem with reading data from file");
@@ -60,15 +76,25 @@ public class QuickSort extends SortClass {
         }
     }
 
+    /**
+     * Method which genrates float array in case user specifies data type as float  
+     * @return - float array of specific size
+     */
     private float[] generateFloatArray() {
         return new float[size];
     }
 
+    /**
+     * Method prints the messages when unspecified data type occured in the program
+     */
     private void printErrorMessage() {
         System.out.println("Type doesn't supported");
         System.out.println("Generation for default type was invoked");
     }
 
+    /**
+     * Method generates random float data and insert it into the float array
+     */
     private void generateFloatsForArray() {
         Random rand_float = new Random();
         Random rand_int = new Random();
@@ -76,6 +102,12 @@ public class QuickSort extends SortClass {
             floatArray[i] = rand_int.nextInt() + rand_float.nextFloat(); 
     }
 
+    /**
+     * Method parttions the array on two subarrays where the left subarray contains numbers smaller than pivot. Whereas the right array contains numbers biger than the pivot.
+     * @param left - first index of subbaray
+     * @param right - last index of subbaray
+     * @return - index where subbarays touches. Inclusivly for the smaller than pivot subarray and exclusivly for biger than pivot subarray.
+     */
     private int partitionOfArray(int left, int right) {
         int pivot = array[this.pivot], l = left, r = right;
         while (true) {
@@ -93,6 +125,11 @@ public class QuickSort extends SortClass {
         }
     }
 
+    /**
+     * Method which contains the quickSort alogorihtm 
+     * @param left - first index of array 
+     * @param right - last index of array
+     */
     public void sortAlgorithms(int left, int right) {
         if (left >= right)  return;
         int pod = partitionOfArray(left, right);
@@ -113,11 +150,7 @@ public class QuickSort extends SortClass {
         }
     }
 
-    public String getTypeOfData() {
-        return typeOfData;
-    }
-
     public void setTypeOfData(String typeOfData) {
-        this.typeOfData = typeOfData;
+        dataType = typeOfData;
     }
 }

@@ -7,9 +7,10 @@ public abstract class SortClass {
     protected int[] array = null; 
     protected String inputDataFailName = "";
     protected FileOutputStream resultFile;
+    protected long timeOfSorting = 0;
 
     /**
-     * Constructor which as a argument take fileName from user, calls function to set variable of the object and read data from the file 
+     * Constructor which as a argument takes fileName from user, calls function to set variable of the object and read data from the file 
      * @param fileName - name of the file which from data should be read 
      * @throws Exception whenever the fileName is empty or file  
      * @throws FileNotFound whenever file which name was specified do not exist
@@ -19,9 +20,17 @@ public abstract class SortClass {
         readDataFromFile();
     }
 
-    protected SortClass(String filename, boolean shouldGenerate) throws Exception {
+    /**
+     * Constructor which as a argument takes fileName from user, calls function to set variable of the object and decided if data should be read from file.
+     * This constructor is for compability parent class with desented QuicSort class. 
+     * @param fileName - name of the file which from data should be read 
+     * @param ifReadData - logical variable determing if data should be read genereted by desented QuickSort class.
+     * @throws Exception whenever the fileName is empty or file  
+     * @throws FileNotFound whenever file which name was specified do not exist
+     */
+    protected SortClass(String filename, boolean ifReadData) throws Exception {
         setFileName(filename);
-        if (shouldGenerate) 
+        if (ifReadData) 
             readDataFromFile();
     }
 
@@ -35,9 +44,15 @@ public abstract class SortClass {
         generateDataForArray();
     }
 
-    protected SortClass(int size, boolean shouldGenerate) {
+    /**
+    * Constructor whicha as a agrument takes size of array, then sets the size and decided if data should be generated for array.
+    * This constructor is for compability parent class with desented QuicSort class. 
+    * @param size - size of array
+    * @param ifReadData - logical variable determing if data should be read genereted by desented QuickSort class.
+    */
+    protected SortClass(int size, boolean ifReadData) {
         setSize(size);
-        if (shouldGenerate) {
+        if (ifReadData) {
             array = createArray();
             generateDataForArray();
         }
@@ -115,12 +130,21 @@ public abstract class SortClass {
                 array[i] = rand.nextInt();
     }
 
+    /**
+     * Method which enables swaping iteams between two indexes of an array
+     * @param tab - array where swap should be done
+     * @param left - lower index to swap
+     * @param right - higher index to swap
+     */
     protected void swap(int[] tab, int left, int right) {
         int tmp = array[left];
         array[left] = array[right];
         array[right] = tmp;
     }
 
+    /**
+     * Method which prints array on the screen
+     */
     protected void printArray() {
         System.out.println(array.toString());
     }
@@ -129,8 +153,12 @@ public abstract class SortClass {
         return size;
     }
 
+    /**
+     * Setter of size variable of the object which additional checking of argument
+     * @param size - size provieded by the user
+     */
     protected void setSize(int size) {
-        if (size > 1)
+        if (size >= 1)
             this.size = size;
         else
             System.out.println("Niepoprawna wartosc");
@@ -140,6 +168,11 @@ public abstract class SortClass {
         return inputDataFailName;
     }
 
+    /**
+     * Setter of fileName variable of the object which additional is checking for emtty string 
+     * @param fileName - fileName provided by the user
+     * @throws Exception - thrown when the fileName is empty
+     */
     protected void setFileName(String fileName) throws Exception {
         if (!fileName.equals(""))
             inputDataFailName = fileName;
