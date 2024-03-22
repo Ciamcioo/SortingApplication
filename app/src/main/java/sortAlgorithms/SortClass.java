@@ -19,6 +19,12 @@ public abstract class SortClass {
         readDataFromFile();
     }
 
+    protected SortClass(String filename, boolean shouldGenerate) throws Exception {
+        setFileName(filename);
+        if (shouldGenerate) 
+            readDataFromFile();
+    }
+
     /**
     *  Constructor whicha as a agrument takes size of array, then sets the size, creates an array and generates data for it.
     * @param size
@@ -27,6 +33,14 @@ public abstract class SortClass {
         setSize(size);
         array = createArray();
         generateDataForArray();
+    }
+
+    protected SortClass(int size, boolean shouldGenerate) {
+        setSize(size);
+        if (shouldGenerate) {
+            array = createArray();
+            generateDataForArray();
+        }
     }
 
     /**
@@ -44,6 +58,7 @@ public abstract class SortClass {
                 if (array == null) {
                     setSize(Integer.parseInt(reader.readLine()));
                     array = createArray();
+                    i++;
                 }
                 array[i] = Integer.parseInt(reader.readLine());
             }
@@ -60,7 +75,7 @@ public abstract class SortClass {
     *  When problems occurse method is displaying statment about it and stream of class which was not closed
     * @param stream - opened stream in program
     */
-    private static void closeStream(Closeable stream) {
+    protected static void closeStream(Closeable stream) {
         try { 
            stream.close(); 
         } catch(IOException e) {
@@ -73,7 +88,7 @@ public abstract class SortClass {
      * Method responsible for generating reader for a file
      * @return object of reader
      */
-    private BufferedReader generatBufferedReader() {
+    protected BufferedReader generatBufferedReader() {
         try {
             return new BufferedReader(new FileReader(inputDataFailName));
         } catch(FileNotFoundException e) {

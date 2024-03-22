@@ -8,13 +8,10 @@ public class ShellSort extends SortClass {
 
     protected ShellSort(int size) {
         super(size);
-        //TODO Auto-generated constructor stub
     }
 
-    @Override
     protected void sortAlgorithm() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'sortAlgorithm'");
+        
     }
 
 }

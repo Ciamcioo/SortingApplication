@@ -6,13 +6,17 @@ public class InsertSort  extends SortClass{
 
     protected InsertSort(int size) {
         super(size);
-        //TODO Auto-generated constructor stub
     }
 
-    @Override
+
     protected void sortAlgorithm() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'sortAlgorithm'");
+        for (int i = 1; i < array.length; i++) {
+            int key = array[i], j = i;
+            while (array[j-1] > key && j > 0) {
+                array[j] = array[j-1];
+            }
+            array[j] = key;
+        }
     }
 
 
