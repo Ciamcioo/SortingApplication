@@ -7,8 +7,7 @@ public class InsertSort  extends SortClass{
     public InsertSort(int size) {
         super(size);
     }
-
-
+    
     /** 
      *  Method which implements the alogrithm of insertion sort.
     */
