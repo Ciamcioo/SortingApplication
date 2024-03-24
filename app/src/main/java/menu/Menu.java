@@ -1,5 +1,6 @@
+package menu;
 import java.io.*;
-
+import main.App;
 public class Menu {
     private static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
     private int algorithm = -1, typeOfSource = -1, operation = -1, size = -1 ;

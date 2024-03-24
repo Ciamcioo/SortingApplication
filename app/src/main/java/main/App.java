@@ -1,3 +1,5 @@
+package main;
+import menu.Menu;
 import sortAlgorithms.*;
 
 public class App {
@@ -9,6 +11,7 @@ public class App {
 
     public static void main(String[] args) {
         App app = new App();
+        app.menu.printOperations();
     }
 
     public static void exitApp() { 
