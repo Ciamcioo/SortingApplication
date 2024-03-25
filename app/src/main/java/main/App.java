@@ -27,7 +27,11 @@ public class App {
 
     private void invokeProgram() throws IOException {
         while (true) {
+        try {
         menu.printOperations();
+        } catch(Exception e) {
+            System.out.println("Input error! Try again");
+        }
         if (menu.getAlgorithm() != -1) 
             chooseAlgorithm();
         menu.clearTermianl();
