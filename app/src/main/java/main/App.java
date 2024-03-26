@@ -1,5 +1,4 @@
 package main;
-import java.io.IOException;
 
 import menu.Menu;
 import sortAlgorithms.*;
@@ -7,25 +6,26 @@ import sortAlgorithms.*;
 public class App {
     QuickSort quikcSort;
     ShellSort shellSort;
-    InsertSort insetSort;
+    InsertSort insertSort;
     HeapSort heapSort;
     Menu menu = new Menu();
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws Exception{
         App app = new App();
         app.invokeProgram(); 
     }
 
-    private void chooseAlgorithm() {
+    private void invokeSpecifiedSorting() throws Exception{
+        createAlgorithm();
         switch (menu.getAlgorithm()) {
-            case 1 -> invokeAlgorithm(heapSort);
-            case 2 -> invokeAlgorithm(insetSort); 
-            case 3 -> invokeAlgorithm(quikcSort);
-            case 4 -> invokeAlgorithm(shellSort);
+            case 1 -> heapSort.sorting();
+            case 2 -> insertSort.sorting();
+            case 3 -> quikcSort.sorting();
+            case 4 -> quikcSort.sorting();
         }
     }
 
-    private void invokeProgram() throws IOException {
+    private void invokeProgram() throws Exception{
         while (true) {
         try {
         menu.printOperations();
@@ -33,7 +33,7 @@ public class App {
             System.out.println("Input error! Try again");
         }
         if (menu.getAlgorithm() != -1) 
-            chooseAlgorithm();
+            invokeSpecifiedSorting();
         menu.clearTermianl();
         }
 
@@ -44,8 +44,30 @@ public class App {
         System.exit(0);
     }
 
-    private void invokeAlgorithm(SortClass sortingClass) {
-        System.out.println("Printing something to check if works");
+    private void createAlgorithm() throws Exception {
+        if (menu.getSourceTyep() == 1) {
+            switch (menu.getAlgorithm()) {
+                case 1 -> heapSort = new HeapSort(menu.getFileName());
+                case 2 -> insertSort = new InsertSort(menu.getFileName());
+                case 3 -> {
 
-    }
+                }
+                case 4 -> shellSort = new ShellSort(menu.getFileName());
+            }
+        } 
+        else {
+            switch (menu.getAlgorithm()) {
+                case 1 -> heapSort = new HeapSort(menu.getSize());
+                case 2 -> insertSort = new InsertSort(menu.getSize());
+                case 3 -> {
+
+                }
+                case 4 -> shellSort = new ShellSort(menu.getSize());
+            }
+
+        }
+
+        
+
+    } 
 }

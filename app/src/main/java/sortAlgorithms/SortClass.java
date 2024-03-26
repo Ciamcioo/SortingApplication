@@ -142,11 +142,15 @@ public abstract class SortClass {
         array[right] = tmp;
     }
 
-    /**
-     * Method which prints array on the screen
-     */
-    protected void printArray() {
-        System.out.println(array.toString());
+    protected abstract void sortAlgorithm();
+
+    public void sorting() {
+        System.out.println("Array before sorting: " + array.toString()); 
+        long startTime = System.currentTimeMillis(); 
+        sortAlgorithm();
+        long endTime = System.currentTimeMillis(); 
+        System.out.println("Array after sorting: " +  array.toString());
+        System.out.println("Time of sroting: " + (endTime-startTime));
     }
 
     protected int getSize() {

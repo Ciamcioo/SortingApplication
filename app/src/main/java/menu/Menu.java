@@ -66,7 +66,7 @@ public class Menu {
         do {
             System.out.print("> ");
             typeOfSource = Integer.parseInt(readData());
-            checkConditions(typeOfSource, 1, 3, "Undefine source");
+            checkConditions(typeOfSource, 1, 2, "Undefine source");
         }while(error);
         clearsError();
         sourceController();
@@ -155,6 +155,10 @@ public class Menu {
         return algorithm;
     }
 
+    public int getSourceTyep() {
+        return typeOfSource;
+    }
+
     public void resetValues() {
         algorithm = -1;
         error = false;
@@ -165,6 +169,14 @@ public class Menu {
         readData();
         System.out.print("\033[H\033[2J");  
         System.out.flush();     
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public int getSize() {
+        return size;
     }
 }
 

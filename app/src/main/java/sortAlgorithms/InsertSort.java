@@ -7,11 +7,12 @@ public class InsertSort  extends SortClass{
     public InsertSort(int size) {
         super(size);
     }
+
     
     /** 
      *  Method which implements the alogrithm of insertion sort.
     */
-    private void sortAlgorithm() {
+    protected void sortAlgorithm() {
         for (int i = 1; i < array.length; i++) {
             int key = array[i], j = i;
             while (array[j-1] > key && j > 0) {

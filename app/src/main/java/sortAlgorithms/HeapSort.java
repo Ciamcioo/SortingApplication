@@ -2,18 +2,18 @@ package sortAlgorithms;
 
 public class HeapSort extends SortClass {
 
-    private HeapSort(int size) {
+    public HeapSort(int size) {
         super(size);
     }
 
-    private HeapSort(String fileName) throws Exception {
+    public HeapSort(String fileName) throws Exception {
         super(fileName);
     }
 
     /**
      * Method which invokes buildHeap method and implements the algorithm of sorthing array with use of the heap
      */
-    public void sortAlgorithm() { 
+    protected void sortAlgorithm() { 
         buildHeap();
         for (int i = array.length - 1; i >= 1; i--) {
             swap(array, 0, i);

@@ -130,11 +130,11 @@ public class QuickSort extends SortClass {
      * @param left - first index of array 
      * @param right - last index of array
      */
-    public void sortAlgorithms(int left, int right) {
+    private void quikcSorting(int left, int right) {
         if (left >= right)  return;
         int pod = partitionOfArray(left, right);
-        sortAlgorithms(left, pod);
-        sortAlgorithms(pod+1, left);
+        quikcSorting(left, pod);
+        quikcSorting(pod+1, left);
     }
 
     public int getPivot() {
@@ -153,4 +153,10 @@ public class QuickSort extends SortClass {
     public void setTypeOfData(String typeOfData) {
         dataType = typeOfData;
     }
+
+    @Override
+    protected void sortAlgorithm() {
+        quikcSorting(0, size-1);
+    }
+
 }

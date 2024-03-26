@@ -3,14 +3,23 @@ package sortAlgorithms;
 public class ShellSort extends SortClass {
     private int[] copieOfArray;
 
-    private ShellSort(String fileName) throws Exception {
+    public ShellSort(String fileName) throws Exception {
         super(fileName);
         copieOfArray = array;
     }
 
-    private ShellSort(int size) {
+    public ShellSort(int size) {
         super(size);
         copieOfArray = array;
+    }
+
+    @Override
+    public void sorting() {
+
+    }
+    @Override
+    protected void sortAlgorithm() {
+
     }
 
     /**
