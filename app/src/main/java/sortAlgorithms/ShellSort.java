@@ -15,10 +15,22 @@ public class ShellSort extends SortClass {
 
     @Override
     public void sorting() {
+        System.out.println("Shell class has two implementations of calculating the algorithm's gap to show time differences between those two algorithms");
+        System.out.println("Both arrays before sorting: " + array.toString()); 
+        long startTime = System.currentTimeMillis();
+        shellSortAlgorithm();
+        long endTime = System.currentTimeMillis();
+        System.out.println("Time of sorting with default gap in Shell alogorithm: " + (endTime - startTime));
+        startTime = System.currentTimeMillis();
+        hibbardSortAlgorithm();
+        endTime = System.currentTimeMillis();
+        System.out.println("Time of sorting with Hibbard gap in Shell algorithm:  " + (endTime - startTime));
+        
 
     }
     @Override
     protected void sortAlgorithm() {
+        throw new RuntimeException("Unimplemented method");
 
     }
 
