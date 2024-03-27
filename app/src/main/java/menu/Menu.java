@@ -12,10 +12,8 @@ public class Menu {
     /**
      *  Prints main menu for sorting application and as an input takes number which will relate to next operations. Input will be read till the input will be correct. After that error variable 
      *  is clear and operationControllers is invoked.
-     * @throws IOException
      */
-    // TODO handles the exceptions
-    public void printOperations() throws IOException {
+    public void printOperations() {
        reader = new BufferedReader(new InputStreamReader(System.in));
        System.out.println("---------------------------------------");
        System.out.println("Sorting Algortihms Application");

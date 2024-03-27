@@ -12,10 +12,8 @@ public abstract class SortClass {
     /**
      * Constructor which as a argument takes fileName from user, calls function to set variable of the object and read data from the file 
      * @param fileName - name of the file which from data should be read 
-     * @throws Exception whenever the fileName is empty or file  
-     * @throws FileNotFound whenever file which name was specified do not exist
      */
-    protected SortClass(String fileName) throws Exception {
+    protected SortClass(String fileName) {
         setFileName(fileName);
         readDataFromFile();
     }
@@ -25,10 +23,8 @@ public abstract class SortClass {
      * This constructor is for compability parent class with desented QuicSort class. 
      * @param fileName - name of the file which from data should be read 
      * @param ifReadData - logical variable determing if data should be read genereted by desented QuickSort class.
-     * @throws Exception whenever the fileName is empty or file  
-     * @throws FileNotFound whenever file which name was specified do not exist
      */
-    protected SortClass(String filename, boolean ifReadData) throws Exception {
+    protected SortClass(String filename, boolean ifReadData) {
         setFileName(filename);
         if (ifReadData) 
             readDataFromFile();
@@ -62,8 +58,6 @@ public abstract class SortClass {
      * Method is reading one line at the time and inserting that line into array if an array object exists. 
      * In case of errors during the file reading function displays the message and line which resulted in an error.
      * After finish of reading data function closes the stream to the file. 
-     * @throws IOException 
-     * @throws NumberFormatExpection
      */
     private void readDataFromFile()  {
         BufferedReader reader = generatBufferedReader();
@@ -178,12 +172,11 @@ public abstract class SortClass {
     /**
      * Setter of fileName variable of the object which additional is checking for emtty string 
      * @param fileName - fileName provided by the user
-     * @throws Exception - thrown when the fileName is empty
      */
-    protected void setFileName(String fileName) throws Exception {
+    protected void setFileName(String fileName) {
         if (!fileName.equals(""))
             inputDataFailName = fileName;
         else
-            throw new Exception("Empty file name");
+           System.out.println("Empty file name"); 
     }
 }

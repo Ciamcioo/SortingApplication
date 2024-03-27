@@ -3,7 +3,7 @@ package sortAlgorithms;
 public class ShellSort extends SortClass {
     private int[] copieOfArray;
 
-    public ShellSort(String fileName) throws Exception {
+    public ShellSort(String fileName) {
         super(fileName);
         copieOfArray = array;
     }

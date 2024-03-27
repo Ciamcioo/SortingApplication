@@ -1,6 +1,6 @@
 package sortAlgorithms;
 public class InsertSort  extends SortClass{
-    public InsertSort(String fileName) throws Exception {
+    public InsertSort(String fileName) {
         super(fileName);
     }
 

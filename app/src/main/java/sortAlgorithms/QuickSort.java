@@ -13,7 +13,7 @@ public class QuickSort extends SortClass {
         setPivot(pivot);
     }
 
-    public QuickSort(String fileName, int pivot) throws Exception {
+    public QuickSort(String fileName, int pivot) {
         super(fileName);
         setPivot(pivot);
     }
@@ -41,9 +41,8 @@ public class QuickSort extends SortClass {
      * @param fileName - name of file from which data should be read
      * @param typeOfData - type of data stored in file
      * @param pivot - point on pivot which should be use while sorting specified by user
-     * @throws Exception
      */
-    public QuickSort(String fileName, String typeOfData, int pivot) throws Exception {
+    public QuickSort(String fileName, String typeOfData, int pivot) {
         super(fileName, !typeOfData.equals("float"));
         if (typeOfData.equals("float")) 
             readFloatsFromFile();

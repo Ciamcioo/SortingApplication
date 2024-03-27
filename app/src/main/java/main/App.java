@@ -10,7 +10,7 @@ public class App {
     HeapSort heapSort;
     Menu menu = new Menu();
 
-    public static void main(String[] args) throws Exception{
+    public static void main(String[] args) {
         App app = new App();
         app.invokeProgram(); 
     }
@@ -18,9 +18,8 @@ public class App {
 
     /**
      * Method invokes the start of the application and servies of the input until the algorithm to use wasn't specified by the user 
-     * @throws Exception
      */
-    private void invokeProgram() throws Exception{
+    private void invokeProgram() {
         while (true) {
         try {
             menu.printOperations();
@@ -36,9 +35,8 @@ public class App {
 
     /**
      * Method creates the alogirhtm and invokes sorting for specified algorithm
-     * @throws Exception
      */
-    private void invokeSpecifiedSorting() throws Exception{
+    private void invokeSpecifiedSorting() {
         createAlgorithm();
         switch (menu.getAlgorithm()) {
             case 1 -> heapSort.sorting();
@@ -58,9 +56,8 @@ public class App {
 
     /**
      * Method creates approprite alogirthm based on the algorithm number and source type. For quick sort additional infomrmations are taken from the user due to the fact it supports two tyeps of data
-     * @throws Exception
      */
-    private void createAlgorithm() throws Exception {
+    private void createAlgorithm() {
         if (menu.getSourceTyep() == 1) {
             switch (menu.getAlgorithm()) {
                 case 1 -> heapSort = new HeapSort(menu.getFileName());

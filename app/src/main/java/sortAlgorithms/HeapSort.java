@@ -6,7 +6,7 @@ public class HeapSort extends SortClass {
         super(size);
     }
 
-    public HeapSort(String fileName) throws Exception {
+    public HeapSort(String fileName) {
         super(fileName);
     }
 
