@@ -144,6 +144,9 @@ public abstract class SortClass {
 
     protected abstract void sortAlgorithm();
 
+    /**
+     * Base invoke of sorting. Every signle desentend class have diffrent implementation of sortAlogrithm().
+     */
     public void sorting() {
         System.out.println("Array before sorting: " + array.toString()); 
         long startTime = System.currentTimeMillis(); 

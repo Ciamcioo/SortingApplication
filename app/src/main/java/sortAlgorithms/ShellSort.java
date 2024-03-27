@@ -13,6 +13,9 @@ public class ShellSort extends SortClass {
         copieOfArray = array;
     }
 
+    /**
+     * Method sorts both orginal and copy array and calculates the time of procedure with inputing to the user the time of both sorting and sorted array
+     */
     @Override
     public void sorting() {
         System.out.println("Shell class has two implementations of calculating the algorithm's gap to show time differences between those two algorithms");
@@ -25,12 +28,15 @@ public class ShellSort extends SortClass {
         hibbardSortAlgorithm();
         endTime = System.currentTimeMillis();
         System.out.println("Time of sorting with Hibbard gap in Shell algorithm:  " + (endTime - startTime));
-        
-
+        System.out.println("Both arrays after sorting: " + array.toString());
     }
+
+    /**
+     *  Handels the method from the parent class, but due to options of sorting it is throwing exception
+     */
     @Override
     protected void sortAlgorithm() {
-        throw new RuntimeException("Unimplemented method");
+        new RuntimeException("Unimplemented method");
 
     }
 
