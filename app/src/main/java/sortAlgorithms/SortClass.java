@@ -120,7 +120,7 @@ public abstract class SortClass {
         Random rand = new Random();
         if (array != null)
             for (int i = 0; i<size; i++) 
-                array[i] = rand.nextInt();
+                array[i] = rand.nextInt(100);
     }
 
     /**
@@ -141,19 +141,30 @@ public abstract class SortClass {
      * Base invoke of sorting. Every signle desentend class have diffrent implementation of sortAlogrithm().
      */
     public void sorting() {
-        System.out.println("Array before sorting: " + array.toString()); 
+        System.out.println("Array before sorting: " + printArray());
         long startTime = System.currentTimeMillis(); 
         sortAlgorithm();
         long endTime = System.currentTimeMillis(); 
-        System.out.println("Array after sorting: " +  array.toString());
-        System.out.println("Time of sroting: " + (endTime-startTime));
+        System.out.println("Array after sorting: " +  printArray());
+        System.out.println("Time of sroting: " + (endTime-startTime) + "ms");
+    }
+
+    protected String printArray() {
+        StringBuilder stringBuilder = new StringBuilder("[");
+        for (int element : array) {
+            stringBuilder.append(element);
+            stringBuilder.append(" ");
+        } 
+        stringBuilder.append("]");
+        return stringBuilder.toString();
+
     }
 
     protected int getSize() {
         return size;
     }
 
-    protected void saveResults(){
+    public void saveResults(){
         BufferedWriter writer = generaBufferedWriter() ; 
         try {
             writer.write("Time of sorting: " + timeResult + " ms");

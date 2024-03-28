@@ -13,13 +13,14 @@ public class ShellSort extends SortClass {
         copieOfArray = array;
     }
 
+    // TODO algorithm reads data out of array bound
     /**
      * Method sorts both orginal and copy array and calculates the time of procedure with inputing to the user the time of both sorting and sorted array
      */
     @Override
     public void sorting() {
         System.out.println("Shell class has two implementations of calculating the algorithm's gap to show time differences between those two algorithms");
-        System.out.println("Both arrays before sorting: " + array.toString()); 
+        System.out.println("Both arrays before sorting: " + printArray()); 
         long startTime = System.currentTimeMillis();
         shellSortAlgorithm();
         long endTime = System.currentTimeMillis();
@@ -28,7 +29,7 @@ public class ShellSort extends SortClass {
         hibbardSortAlgorithm();
         endTime = System.currentTimeMillis();
         System.out.println("Time of sorting with Hibbard gap in Shell algorithm:  " + (endTime - startTime));
-        System.out.println("Both arrays after sorting: " + array.toString());
+        System.out.println("Both arrays after sorting: " + printArray());
     }
 
     /**

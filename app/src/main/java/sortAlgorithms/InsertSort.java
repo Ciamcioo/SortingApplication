@@ -15,8 +15,9 @@ public class InsertSort  extends SortClass{
     protected void sortAlgorithm() {
         for (int i = 1; i < array.length; i++) {
             int key = array[i], j = i;
-            while (array[j-1] > key && j > 0) {
+            while (j > 0 && array[j-1] > key) {
                 array[j] = array[j-1];
+                j--;
             }
             array[j] = key;
         }
