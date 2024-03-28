@@ -78,6 +78,7 @@ public class App {
                 case 2 -> insertSort = new InsertSort(menu.getSize());
                 case 3 -> {
                     menu.printAdditionalRequest();
+                    System.out.println("Some changes");
                     if (menu.getQSDataType() == 1) 
                         quikcSort = new QuickSort(menu.getSize(), "float", menu.getPivot());
                     else
