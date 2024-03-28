@@ -7,14 +7,13 @@ import java.util.Random;
 public class QuickSort extends SortClass {
     private int pivot;
     private float[] floatArray;
-    private String dataType;
 
-    public QuickSort(int size, String pivot) {
+    public QuickSort(int size, int pivot) {
         super(size);
         setPivot(pivot);
     }
 
-    public QuickSort(String fileName, String pivot) throws Exception {
+    public QuickSort(String fileName, int pivot) {
         super(fileName);
         setPivot(pivot);
     }
@@ -25,7 +24,7 @@ public class QuickSort extends SortClass {
      * @param typeOfData - array type specified by user
      * @param pivot  - point on pivot which should be use while sorting specified by user
     */
-    public QuickSort(int size, String typeOfData, String pivot) {
+    public QuickSort(int size, String typeOfData, int pivot) {
         super(size, !typeOfData.equals("float"));
         if (typeOfData.equals("float")) {
             floatArray = new float[size];
@@ -42,9 +41,8 @@ public class QuickSort extends SortClass {
      * @param fileName - name of file from which data should be read
      * @param typeOfData - type of data stored in file
      * @param pivot - point on pivot which should be use while sorting specified by user
-     * @throws Exception
      */
-    public QuickSort(String fileName, String typeOfData, String pivot) throws Exception {
+    public QuickSort(String fileName, String typeOfData, int pivot) {
         super(fileName, !typeOfData.equals("float"));
         if (typeOfData.equals("float")) 
             readFloatsFromFile();
@@ -130,27 +128,31 @@ public class QuickSort extends SortClass {
      * @param left - first index of array 
      * @param right - last index of array
      */
-    public void sortAlgorithms(int left, int right) {
+    private void quikcSorting(int left, int right) {
         if (left >= right)  return;
         int pod = partitionOfArray(left, right);
-        sortAlgorithms(left, pod);
-        sortAlgorithms(pod+1, left);
+        quikcSorting(left, pod);
+        quikcSorting(pod+1, left);
+    }
+
+    /**
+     * Invokes the quickSorting algorithm  
+     */
+    @Override
+    protected void sortAlgorithm() {
+        quikcSorting(0, size-1);
     }
 
     public int getPivot() {
         return pivot;
     }
 
-    public void setPivot(String pivot) {
-        pivot = pivot.toLowerCase();
+    public void setPivot(int  pivot) {
         switch (pivot) {
-            case "center" -> this.pivot = size/2;
-            case "right" -> this.pivot = size;
-            default -> this.pivot = 0;
+            case 1 -> this.pivot = 0;
+            case 2 -> this.pivot = size/2;
+            default -> this.pivot = size;
         }
     }
 
-    public void setTypeOfData(String typeOfData) {
-        dataType = typeOfData;
-    }
 }
