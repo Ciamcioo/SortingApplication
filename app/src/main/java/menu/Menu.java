@@ -2,7 +2,7 @@ package menu;
 import java.io.*;
 import main.App;
 public class Menu {
-    private static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+    static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
     private int algorithm = -1, typeOfSource = -1, operation = -1, size = -1 ;
     private String fileName = null;
     private boolean error = false;
@@ -90,13 +90,20 @@ public class Menu {
     }
     
     private String readData() {
+        String input = null;
         try {
-            return reader.readLine();
+            while(input == null) {
+                input = reader.readLine();
+            }
+            return input;
         } catch(Exception e) {
             System.out.println("Error! While reading data");
             error = true;
             return "-1";
+        } finally {
+           closeReader(); 
         }
+        
     }
 
     private void checkConditions(int valueToCheck, int minValue, int maxValue, String msg) {

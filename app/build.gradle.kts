@@ -26,7 +26,7 @@ dependencies {
 
 application {
     // Define the main class for the application.
-    mainClass.set("sorthingapplication.App")
+    mainClass.set("main.App")
 }
 
 tasks.named<Test>("test") {

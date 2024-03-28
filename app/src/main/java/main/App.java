@@ -15,7 +15,6 @@ public class App {
     }
 
     public static void exitApp() { 
-        Menu.closeReader(); 
         System.exit(0);
     }
 }
