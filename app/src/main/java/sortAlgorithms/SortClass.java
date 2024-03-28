@@ -6,8 +6,7 @@ public abstract class SortClass {
     protected int size = 0;
     protected int[] array = null; 
     protected String inputDataFailName = "";
-    protected FileOutputStream resultFile;
-    protected long timeOfSorting = 0;
+    protected long timeResult = 0;
 
     /**
      * Constructor which as a argument takes fileName from user, calls function to set variable of the object and read data from the file 
@@ -152,6 +151,27 @@ public abstract class SortClass {
 
     protected int getSize() {
         return size;
+    }
+
+    protected void saveResults(){
+        BufferedWriter writer = generaBufferedWriter() ; 
+        try {
+            writer.write("Time of sorting: " + timeResult + " ms");
+        } catch (Exception e) {
+            System.out.println("Line cound't be saved to file");
+        } finally {
+            closeStream(writer);
+        }
+
+    }
+
+    private BufferedWriter generaBufferedWriter() {
+        try  {
+            return new BufferedWriter(new FileWriter("app\\src\\main\\resources"));
+        } catch (Exception e) {
+            System.out.println("Writrter generattor problem");
+            return null;
+        }
     }
 
     /**

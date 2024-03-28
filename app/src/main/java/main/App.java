@@ -39,11 +39,24 @@ public class App {
     private void invokeSpecifiedSorting() {
         createAlgorithm();
         switch (menu.getAlgorithm()) {
-            case 1 -> heapSort.sorting();
-            case 2 -> insertSort.sorting();
-            case 3 -> quikcSort.sorting();
-            case 4 -> quikcSort.sorting();
+            case 1 -> { 
+                heapSort.sorting();
+                heapSort.saveResults();
+            }
+            case 2 -> {
+                insertSort.sorting();
+                insertSort.saveResults();
+            }
+            case 3 -> { 
+                quikcSort.sorting();
+                quikcSort.saveResults();
+            }
+            case 4 -> {
+                shellSort.sorting();
+                shellSort.saveResults();
+            }
         }
+        
     }
 
     /**
@@ -78,7 +91,6 @@ public class App {
                 case 2 -> insertSort = new InsertSort(menu.getSize());
                 case 3 -> {
                     menu.printAdditionalRequest();
-                    System.out.println("Some changes");
                     if (menu.getQSDataType() == 1) 
                         quikcSort = new QuickSort(menu.getSize(), "float", menu.getPivot());
                     else
