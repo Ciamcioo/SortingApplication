@@ -176,9 +176,10 @@ public abstract class SortClass {
 
     }
 
+    // TODO problem with generating writer for the file
     private BufferedWriter generaBufferedWriter() {
         try  {
-            return new BufferedWriter(new FileWriter("app\\src\\main\\resources"));
+            return new BufferedWriter(new FileWriter("\\app\\src\\main\\resources"));
         } catch (Exception e) {
             System.out.println("Writrter generattor problem");
             return null;

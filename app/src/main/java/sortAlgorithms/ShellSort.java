@@ -13,7 +13,7 @@ public class ShellSort extends SortClass {
         copieOfArray = array;
     }
 
-    // TODO algorithm reads data out of array bound
+    //
     /**
      * Method sorts both orginal and copy array and calculates the time of procedure with inputing to the user the time of both sorting and sorted array
      */
@@ -65,7 +65,7 @@ public class ShellSort extends SortClass {
      * @param gap - variable which determins the jump between memory cells
      */
     private void iterationWithDefineGap(int gap) {
-        for (int i = array.length; i-gap >= 0; i--)
+        for (int i = array.length-1; i-gap >= 0; i--)
             if (array[i] < array[i-gap])
                 swap(array, i-gap, i);
     }
