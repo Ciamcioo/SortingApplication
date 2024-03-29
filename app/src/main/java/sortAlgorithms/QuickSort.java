@@ -3,8 +3,8 @@ package sortAlgorithms;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.Random;
-// TODO fix the bug on sorting float array
 public class QuickSort extends SortClass {
+    private String typeOfData;
     private int pivot;
     private float[] floatArray;
 
@@ -26,13 +26,17 @@ public class QuickSort extends SortClass {
     */
     public QuickSort(int size, String typeOfData, int pivot) {
         super(size, !typeOfData.equals("float"));
+        if (array != null)
+            this.typeOfData = typeOfData;
         if (typeOfData.equals("float")) {
             floatArray = new float[size];
             generateFloatsForArray();
+            this.typeOfData  = typeOfData;
         } 
         else 
             printErrorMessage();
         setPivot(pivot);
+
         
     }
 
@@ -106,13 +110,32 @@ public class QuickSort extends SortClass {
      * @param right - last index of subbaray
      * @return - index where subbarays touches. Inclusivly for the smaller than pivot subarray and exclusivly for biger than pivot subarray.
      */
-    private int partitionOfArray(int left, int right) {
+    private int partitionOfIntArray(int left, int right) {
+
         int pivot = array[this.pivot], l = left, r = right;
         while (true) {
             while (pivot < this.array[r]) r--;
             while (pivot > this.array[l]) l++;
             if (l < r) {
-                swap(array, r, l); 
+                swap(r, l); 
+                r--;
+                l++;
+            }
+            else {
+                if (r == right) r--;
+                return r;
+            }
+        }
+    }
+    private int partitionOfFloatArray(int left, int right){
+
+        float pivot = floatArray[this.pivot];
+        int l = left, r = right;
+        while (true) {
+            while (pivot < this.floatArray[r]) r--;
+            while (pivot > this.floatArray[l]) l++;
+            if (l < r) {
+                swap(r, l); 
                 r--;
                 l++;
             }
@@ -129,10 +152,32 @@ public class QuickSort extends SortClass {
      * @param right - last index of array
      */
     private void quikcSorting(int left, int right) {
+        int pod;
         if (left >= right)  return;
-        int pod = partitionOfArray(left, right);
+        if (typeOfData.equals("float"))
+            pod = partitionOfFloatArray(left, right);
+        else 
+            pod = partitionOfIntArray(left, right);
         quikcSorting(left, pod);
         quikcSorting(pod+1, left);
+    }
+    /**
+     * Implements handling swap method for both types of data
+     */
+    @Override
+    protected void swap(int left, int right) {
+        if (typeOfData.equals("float")) {
+            float tmp = floatArray[right];
+            floatArray[right] = floatArray[left];
+            floatArray[left] = tmp;
+        }
+        else {
+            int tmp = array[left];
+            array[left] = array[right];
+            array[right] = tmp;
+        }
+
+
     }
 
     /**
@@ -143,6 +188,27 @@ public class QuickSort extends SortClass {
         quikcSorting(0, size-1);
     }
 
+    /**
+     * Print prints array based on type
+     */
+    @Override
+    protected String printArray() {
+        StringBuilder stringBuilder = new StringBuilder("[");
+        if (typeOfData.equals("float")) {
+            for (float element : floatArray) {
+                stringBuilder.append(element);
+                stringBuilder.append(" ");
+            }
+        }
+        else 
+            for (int element : array) {
+                stringBuilder.append(element);
+                stringBuilder.append(" ");
+            } 
+        stringBuilder.append("]");
+        return stringBuilder.toString();
+    }
+
     public int getPivot() {
         return pivot;
     }
@@ -151,7 +217,7 @@ public class QuickSort extends SortClass {
         switch (pivot) {
             case 1 -> this.pivot = 0;
             case 2 -> this.pivot = size/2;
-            default -> this.pivot = size;
+            default -> this.pivot = size - 1;
         }
     }
 

@@ -129,7 +129,7 @@ public abstract class SortClass {
      * @param left - lower index to swap
      * @param right - higher index to swap
      */
-    protected void swap(int[] tab, int left, int right) {
+    protected void swap( int left, int right) {
         int tmp = array[left];
         array[left] = array[right];
         array[right] = tmp;
@@ -141,14 +141,14 @@ public abstract class SortClass {
      * Base invoke of sorting. Every signle desentend class have diffrent implementation of sortAlogrithm().
      */
     public void sorting() {
-        if (array.length < 2000)
+        if (size < 2000)
             System.out.println("Array before sorting: " + printArray());
         long startTime = System.currentTimeMillis(); 
         sortAlgorithm();
         long endTime = System.currentTimeMillis(); 
-        if (array.length < 2000)
+        if (size < 2000)
             System.out.println("Array after sorting: " +  printArray());
-        System.out.println("Time of sroting: " + (endTime-startTime) + "ms");
+        System.out.println("Time of sroting: " + (endTime-startTime) + " ms");
     }
 
     protected String printArray() {

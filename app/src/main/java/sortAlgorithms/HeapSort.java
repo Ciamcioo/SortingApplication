@@ -16,7 +16,7 @@ public class HeapSort extends SortClass {
     protected void sortAlgorithm() { 
         buildHeap();
         for (int i = array.length - 1; i >= 1; i--) {
-            swap(array, 0, i);
+            swap(0, i);
             fixHeapDown(0, array.length - i);
         }
     }
@@ -44,7 +44,7 @@ public class HeapSort extends SortClass {
             root = rightDescedant;
 
         if (root != rootOnInv) {
-            swap(array, rootOnInv, root);
+            swap(rootOnInv, root);
             fixHeapDown(root, readuction);
         }
     }

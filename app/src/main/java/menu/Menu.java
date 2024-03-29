@@ -28,11 +28,11 @@ public class Menu {
        System.out.println("6. Exit");
        System.out.println("Enter a number related to operation");
        do {
+            clearsError();
             System.out.print("> ");
             operation =  Integer.parseInt(readData());
             checkConditions(operation, 1, 6, "Undefined operation");
        } while(error);
-       clearsError();
        operationController();
     }
 
@@ -63,11 +63,11 @@ public class Menu {
         System.out.println("4. Shell sorting algorithm");
         System.out.println("Enter number related to sorting algorithm");
         do {
+            clearsError();
             System.out.print("> " );
             algorithm = Integer.parseInt(readData());
             checkConditions(algorithm, 1, 5, "Undefinded sorting algorithm");
         }while(error);
-        clearsError();
         printSourcesOfData();
     }
 
@@ -80,11 +80,11 @@ public class Menu {
             System.out.println("2. Generated");
             System.out.println("Enter number relevante to source of data");
         do {
+            clearsError();
             System.out.print("> ");
             typeOfSource = Integer.parseInt(readData());
             checkConditions(typeOfSource, 1, 2, "Undefine source");
         }while(error);
-        clearsError();
         sourceController();
     }
 
@@ -97,11 +97,11 @@ public class Menu {
         System.out.println("2. Use saved value");
         System.out.println("Enter number relevatn to variable for source");
         do {
+            clearsError();
             System.out.print("> ");
             optionVariable = Integer.parseInt(readData());
             checkConditions(optionVariable, 1, 2, "Undefine option");
         }while(error);
-        clearsError();
         optionVariableSource();
     }
 
@@ -140,11 +140,11 @@ public class Menu {
         System.out.println("2. Int");
         System.out.println("Enter number relevatn to data type");
         do {
+            clearsError();
             System.out.print("> ");
             qsDataType = Integer.parseInt(readData()); 
             checkConditions(qsDataType, 1, 2, "Undefined data type");
         } while(error);
-        clearsError();
     }
 
     /**
@@ -157,11 +157,11 @@ public class Menu {
         System.out.println("3. Right");
         System.out.println("Enter number relevatn to position of pivot");
         do {
+            clearsError();
             System.out.print("> ");
             pivotPlacmentQS = Integer.parseInt(readData()); 
             checkConditions(qsDataType, 1, 3, "Undefinded pivot placment");
         } while(error);
-        clearsError();
 
     }
     /**

@@ -2,7 +2,7 @@ package main;
 
 import menu.Menu;
 import sortAlgorithms.*;
-
+// TODO write clearing flags 
 public class App {
     QuickSort quikcSort;
     ShellSort shellSort;
@@ -26,7 +26,7 @@ public class App {
         } catch(Exception e) {
             System.out.println("Input error! Try again");
         }
-        if (menu.getAlgorithm() != -1) 
+        if (menu.getAlgorithm() != -1)  
             invokeSpecifiedSorting();
         menu.clearTermianl();
         }

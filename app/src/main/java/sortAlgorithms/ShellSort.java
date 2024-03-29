@@ -13,23 +13,25 @@ public class ShellSort extends SortClass {
         copieOfArray = array;
     }
 
-    //
+    // TODO beter implemenation of  printing data 
     /**
      * Method sorts both orginal and copy array and calculates the time of procedure with inputing to the user the time of both sorting and sorted array
      */
     @Override
     public void sorting() {
         System.out.println("Shell class has two implementations of calculating the algorithm's gap to show time differences between those two algorithms");
-        System.out.println("Both arrays before sorting: " + printArray()); 
+        if (array.length < 2000)
+            System.out.println("Both arrays before sorting: " + printArray()); 
         long startTime = System.currentTimeMillis();
         shellSortAlgorithm();
         long endTime = System.currentTimeMillis();
-        System.out.println("Time of sorting with default gap in Shell alogorithm: " + (endTime - startTime));
+        System.out.println("Time of sorting with default gap in Shell alogorithm: " + (endTime - startTime) + " ms");
         startTime = System.currentTimeMillis();
         hibbardSortAlgorithm();
         endTime = System.currentTimeMillis();
-        System.out.println("Time of sorting with Hibbard gap in Shell algorithm:  " + (endTime - startTime));
-        System.out.println("Both arrays after sorting: " + printArray());
+        System.out.println("Time of sorting with Hibbard gap in Shell algorithm:  " + (endTime - startTime) + " ms");
+        if (array.length < 2000)
+            System.out.println("Both arrays after sorting: " + printArray());
     }
 
     /**
@@ -67,7 +69,7 @@ public class ShellSort extends SortClass {
     private void iterationWithDefineGap(int gap) {
         for (int i = array.length-1; i-gap >= 0; i--)
             if (array[i] < array[i-gap])
-                swap(array, i-gap, i);
+                swap(i-gap, i);
     }
 
     public int[] getCopierOfArray() {
