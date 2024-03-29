@@ -141,11 +141,13 @@ public abstract class SortClass {
      * Base invoke of sorting. Every signle desentend class have diffrent implementation of sortAlogrithm().
      */
     public void sorting() {
-        System.out.println("Array before sorting: " + printArray());
+        if (array.length < 2000)
+            System.out.println("Array before sorting: " + printArray());
         long startTime = System.currentTimeMillis(); 
         sortAlgorithm();
         long endTime = System.currentTimeMillis(); 
-        System.out.println("Array after sorting: " +  printArray());
+        if (array.length < 2000)
+            System.out.println("Array after sorting: " +  printArray());
         System.out.println("Time of sroting: " + (endTime-startTime) + "ms");
     }
 
@@ -168,6 +170,7 @@ public abstract class SortClass {
         BufferedWriter writer = generaBufferedWriter() ; 
         try {
             writer.write("Time of sorting: " + timeResult + " ms");
+            writer.newLine();
         } catch (Exception e) {
             System.out.println("Line cound't be saved to file");
         } finally {
@@ -176,10 +179,9 @@ public abstract class SortClass {
 
     }
 
-    // TODO problem with generating writer for the file
     private BufferedWriter generaBufferedWriter() {
         try  {
-            return new BufferedWriter(new FileWriter("\\app\\src\\main\\resources"));
+            return new BufferedWriter(new FileWriter("E:\\workspace\\JavaPrograming\\SorthingApplication\\app\\src\\main\\resources\\result.txt", true));
         } catch (Exception e) {
             System.out.println("Writrter generattor problem");
             return null;

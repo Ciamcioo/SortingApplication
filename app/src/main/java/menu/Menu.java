@@ -105,12 +105,12 @@ public class Menu {
         optionVariableSource();
     }
 
-    /**
+    /*
      *  Controler for the additiona information
      */
     private void optionVariableSource() {
         if (optionVariable == 1) {
-           switch (optionVariable) {
+           switch (typeOfSource) {
                 case 1 -> enterFileName(); 
                 case 2 -> enterArraySize();
            } 
