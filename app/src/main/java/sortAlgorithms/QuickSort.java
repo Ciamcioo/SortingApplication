@@ -195,6 +195,14 @@ public class QuickSort extends SortClass {
         quikcSorting(0, size-1);
     }
 
+    @Override
+    public boolean checkArrayState() {
+        if (typeOfData.equals("float"))
+            return !(floatArray == null);
+        else 
+            return !(array == null);
+    } 
+
     /**
      * Print prints array based on type
      */

@@ -60,6 +60,8 @@ public abstract class SortClass {
      */
     private void readDataFromFile()  {
         BufferedReader reader = generatBufferedReader();
+        if (reader == null) 
+            return;
         int i = -1;
         try {
             for (; reader.ready() && i < size; i++) { 
@@ -162,6 +164,9 @@ public abstract class SortClass {
         stringBuilder.append("]");
         return stringBuilder.toString();
 
+    }
+    public boolean checkArrayState() {
+        return !(array == null);
     }
 
     protected int getSize() {

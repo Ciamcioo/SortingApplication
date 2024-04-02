@@ -13,7 +13,6 @@ public class ShellSort extends SortClass {
         copieOfArray = array;
     }
 
-    // TODO beter implemenation of  printing data 
     /**
      * Method sorts both orginal and copy array and calculates the time of procedure with inputing to the user the time of both sorting and sorted array
      */

@@ -2,7 +2,7 @@ package main;
 
 import menu.Menu;
 import sortAlgorithms.*;
-// TODO write clearing flags 
+
 public class App {
     QuickSort quikcSort;
     ShellSort shellSort;
@@ -42,18 +42,26 @@ public class App {
         createAlgorithm();
         switch (menu.getAlgorithm()) {
             case 1 -> { 
+                if(!heapSort.checkArrayState())
+                    return; 
                 heapSort.sorting();
                 heapSort.saveResults();
             }
             case 2 -> {
+                if(!insertSort.checkArrayState())
+                    return; 
                 insertSort.sorting();
                 insertSort.saveResults();
             }
             case 3 -> { 
+                if(!quikcSort.checkArrayState())
+                    return; 
                 quikcSort.sorting();
                 quikcSort.saveResults();
             }
             case 4 -> {
+                if(!shellSort.checkArrayState())
+                    return; 
                 shellSort.sorting();
                 shellSort.saveResults();
             }
