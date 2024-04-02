@@ -11,11 +11,13 @@ public class QuickSort extends SortClass {
     public QuickSort(int size, int pivot) {
         super(size);
         setPivot(pivot);
+        typeOfData = "int";
     }
 
     public QuickSort(String fileName, int pivot) {
         super(fileName);
         setPivot(pivot);
+        typeOfData = "int";
     }
 
     /**
@@ -26,18 +28,14 @@ public class QuickSort extends SortClass {
     */
     public QuickSort(int size, String typeOfData, int pivot) {
         super(size, !typeOfData.equals("float"));
-        if (array != null)
-            this.typeOfData = typeOfData;
         if (typeOfData.equals("float")) {
             floatArray = new float[size];
             generateFloatsForArray();
-            this.typeOfData  = typeOfData;
         } 
         else 
             printErrorMessage();
         setPivot(pivot);
-
-        
+        this.typeOfData = typeOfData;
     }
 
     /**
@@ -53,6 +51,7 @@ public class QuickSort extends SortClass {
         else 
             printErrorMessage();
         setPivot(pivot);
+        this.typeOfData = typeOfData;
     }
 
     /**
@@ -101,7 +100,15 @@ public class QuickSort extends SortClass {
         Random rand_float = new Random();
         Random rand_int = new Random();
         for (int i = 0; i < floatArray.length; i++) 
-            floatArray[i] = rand_int.nextInt() + rand_float.nextFloat(); 
+            floatArray[i] = rand_int.nextInt(10,100) +  rand_float.nextFloat(); 
+    }
+
+    private void calculatePivot(int left, int right) {
+       switch (pivot) {
+        case 1 -> pivot = left;
+        case 2 -> pivot = (left+right)/2;
+        default -> pivot = right;
+       }
     }
 
     /**
@@ -111,13 +118,13 @@ public class QuickSort extends SortClass {
      * @return - index where subbarays touches. Inclusivly for the smaller than pivot subarray and exclusivly for biger than pivot subarray.
      */
     private int partitionOfIntArray(int left, int right) {
-
+        calculatePivot(left, right);
         int pivot = array[this.pivot], l = left, r = right;
         while (true) {
-            while (pivot < this.array[r]) r--;
             while (pivot > this.array[l]) l++;
+            while (pivot < this.array[r]) r--;
             if (l < r) {
-                swap(r, l); 
+                swap(l,r); 
                 r--;
                 l++;
             }
@@ -128,14 +135,14 @@ public class QuickSort extends SortClass {
         }
     }
     private int partitionOfFloatArray(int left, int right){
-
+        calculatePivot(left, right);
         float pivot = floatArray[this.pivot];
         int l = left, r = right;
         while (true) {
-            while (pivot < this.floatArray[r]) r--;
             while (pivot > this.floatArray[l]) l++;
+            while (pivot < this.floatArray[r]) r--;
             if (l < r) {
-                swap(r, l); 
+                swap(l,r); 
                 r--;
                 l++;
             }
@@ -154,12 +161,12 @@ public class QuickSort extends SortClass {
     private void quikcSorting(int left, int right) {
         int pod;
         if (left >= right)  return;
-        if (typeOfData.equals("float"))
+        if (typeOfData.equals("float")) 
             pod = partitionOfFloatArray(left, right);
-        else 
+        else  
             pod = partitionOfIntArray(left, right);
         quikcSorting(left, pod);
-        quikcSorting(pod+1, left);
+        quikcSorting(pod+1, right);
     }
     /**
      * Implements handling swap method for both types of data
@@ -214,11 +221,7 @@ public class QuickSort extends SortClass {
     }
 
     public void setPivot(int  pivot) {
-        switch (pivot) {
-            case 1 -> this.pivot = 0;
-            case 2 -> this.pivot = size/2;
-            default -> this.pivot = size - 1;
-        }
+        this.pivot = pivot;
     }
 
 }

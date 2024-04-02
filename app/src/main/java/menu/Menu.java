@@ -184,9 +184,11 @@ public class Menu {
      * Method enables file name 
      */
     private void enterFileName() {
+        do {
         System.out.println("Enter a file name");
         System.out.print("> ");
         fileName = readData();
+        } while(fileName.equals(""));
     }
 
     /**
@@ -272,6 +274,11 @@ public class Menu {
         error = false;
     }
 
+    public void clearFlags() {
+        algorithm = -1; 
+        typeOfSource = -1;
+        operation = -1;
+    }
     /**
      *  Method clears terminal after pressing any key by inputing data to the stream and flushing it 
      */

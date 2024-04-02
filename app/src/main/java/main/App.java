@@ -26,8 +26,10 @@ public class App {
         } catch(Exception e) {
             System.out.println("Input error! Try again");
         }
-        if (menu.getAlgorithm() != -1)  
+        if (menu.getAlgorithm() != -1) {  
             invokeSpecifiedSorting();
+            menu.clearFlags();
+        }
         menu.clearTermianl();
         }
 

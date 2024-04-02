@@ -70,7 +70,7 @@ public abstract class SortClass {
                 }
                 array[i] = Integer.parseInt(reader.readLine());
             }
-        } catch (NumberFormatException | IOException e) {
+        } catch (NumberFormatException | IOException | NullPointerException e) {
             System.out.println("Problem with reading data from file");
             System.out.println("Reader has stoped on line number: " + i);
         } finally{
@@ -89,6 +89,8 @@ public abstract class SortClass {
         } catch(IOException e) {
             System.out.println("Problem with closing stream");
             System.out.println("Stream type: " + stream.getClass());
+        } catch(NullPointerException e) {
+            System.out.println("Invalid input");
         } 
     }
 
@@ -120,7 +122,7 @@ public abstract class SortClass {
         Random rand = new Random();
         if (array != null)
             for (int i = 0; i<size; i++) 
-                array[i] = rand.nextInt(100);
+                array[i] = rand.nextInt();
     }
 
     /**
@@ -196,7 +198,7 @@ public abstract class SortClass {
         if (size >= 1)
             this.size = size;
         else
-            System.out.println("Niepoprawna wartosc");
+            new RuntimeException("Invalid size");
     }
 
     protected String getFileName() {
@@ -209,8 +211,8 @@ public abstract class SortClass {
      */
     protected void setFileName(String fileName) {
         if (!fileName.equals(""))
-            inputDataFailName = fileName;
+            inputDataFailName = fileName; 
         else
-           System.out.println("Empty file name"); 
+            new RuntimeException("Invalid fileName");
     }
 }
