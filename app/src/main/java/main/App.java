@@ -17,7 +17,8 @@ public class App {
 
 
     /**
-     * Method invokes the start of the application and servies of the input until the algorithm to use wasn't specified by the user 
+     * Keeps the program working until the exit (6) operation is not provided. It prints the main menu with basic operations and checks for algorithm choice, whenever algorithm is choosen
+     * invokes the sorting algorithm. When the sorting algorithm finished clears the flag and termianl. 
      */
     private void invokeProgram() {
         while (true) {
@@ -36,7 +37,7 @@ public class App {
     }
 
     /**
-     * Method creates the alogirhtm and invokes sorting for specified algorithm
+     * Creates alogirhtm, checks if array exists if no returns. If array exists for specified algorithm, sorting and savingResults methods are invoked. 
      */
     private void invokeSpecifiedSorting() {
         createAlgorithm();
@@ -70,48 +71,65 @@ public class App {
     }
 
     /**
-     * Method closes reader and program
+     * Invokes method to create algorithm based on source type specified in menu object
+     */
+    private void createAlgorithm() {
+        if (menu.getSourceTyep() == 1) 
+            createAlgorithmWithFileInput();
+        else 
+            createAlgorithmWithGeneratedInput();
+    } 
+
+    /**
+     *  Creates object of algorithm based on the number from menu obeject when input data will be from file
+     */
+    private void createAlgorithmWithFileInput() {
+        switch (menu.getAlgorithm()) {
+            case 1 -> heapSort = new HeapSort(menu.getFileName());
+            case 2 -> insertSort = new InsertSort(menu.getFileName());
+            case 3 -> createQuickSortWithFileInput(); 
+            case 4 -> shellSort = new ShellSort(menu.getFileName());
+            }
+    } 
+
+    /**
+     * Creates quicksort object of specified type when input data will be from file 
+     */
+    private void createQuickSortWithFileInput() {
+        menu.printAdditionalRequest();
+        if (menu.getQSDataType() == 1) 
+            quikcSort = new QuickSort(menu.getFileName(), "float", menu.getPivot());
+        else
+            quikcSort = new QuickSort(menu.getFileName(), menu.getPivot());
+    }
+
+    /**
+     *  Creates object of algorithm based on the number from menu obeject when input data will be generated  
+     */
+    private void createAlgorithmWithGeneratedInput() {
+        switch (menu.getAlgorithm()) {
+            case 1 -> heapSort = new HeapSort(menu.getSize());
+            case 2 -> insertSort = new InsertSort(menu.getSize());
+            case 3 -> createQuickSortWithGeneratedInput(); 
+            case 4 -> shellSort = new ShellSort(menu.getSize());
+        }
+    }
+
+    /**
+     * Creates quicksort object of specified type when input data will be generated
+     */
+    private void createQuickSortWithGeneratedInput() {
+        menu.printAdditionalRequest();
+        if (menu.getQSDataType() == 1) 
+            quikcSort = new QuickSort(menu.getSize(), "float", menu.getPivot());
+        else
+            quikcSort = new QuickSort(menu.getSize(), menu.getPivot());
+    }
+
+    /**
+     * Closes the program
      */
     public static void exitApp() { 
         System.exit(0);
     }
-
-    /**
-     * Method creates approprite alogirthm based on the algorithm number and source type. For quick sort additional infomrmations are taken from the user due to the fact it supports two tyeps of data
-     */
-    private void createAlgorithm() {
-        if (menu.getSourceTyep() == 1) {
-            switch (menu.getAlgorithm()) {
-                case 1 -> heapSort = new HeapSort(menu.getFileName());
-                case 2 -> insertSort = new InsertSort(menu.getFileName());
-                case 3 -> {
-                    menu.printAdditionalRequest();
-                    if (menu.getQSDataType() == 1) 
-                        quikcSort = new QuickSort(menu.getFileName(), "float", menu.getPivot());
-                    else
-                        quikcSort = new QuickSort(menu.getFileName(), menu.getPivot());
-
-                }
-                case 4 -> shellSort = new ShellSort(menu.getFileName());
-            }
-        } 
-        else {
-            switch (menu.getAlgorithm()) {
-                case 1 -> heapSort = new HeapSort(menu.getSize());
-                case 2 -> insertSort = new InsertSort(menu.getSize());
-                case 3 -> {
-                    menu.printAdditionalRequest();
-                    if (menu.getQSDataType() == 1) 
-                        quikcSort = new QuickSort(menu.getSize(), "float", menu.getPivot());
-                    else
-                        quikcSort = new QuickSort(menu.getSize(), menu.getPivot());
-                }
-                case 4 -> shellSort = new ShellSort(menu.getSize());
-            }
-
-        }
-
-        
-
-    } 
 }

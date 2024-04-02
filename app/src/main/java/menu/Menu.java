@@ -10,8 +10,7 @@ public class Menu {
     private boolean error = false;
 
     /**
-     *  Prints main menu for sorting application and as an input takes number which will relate to next operations. Input will be read till the input will be correct. After that error variable 
-     *  is clear and operationControllers is invoked.
+     *  Prints main menu of application, as an input takes number relating to next operations. Input will be read unless it is not correct. After that error variable is cleared and operationControllers is invoked.
      */
     public void printOperations() {
        reader = new BufferedReader(new InputStreamReader(System.in));
@@ -52,8 +51,7 @@ public class Menu {
     }
 
     /** 
-     * Prints available algorithms to use for sorting an array and take an input from the user. Method will read data until all the condition will be met. Clears error
-     * flags and invokes printSourceOfData().
+     * Prints available algorithms to use for sorting an array and take an input from the user. Method will read data unless all the condition will not be met. Clears error flags and invokes printSourceOfData().
      */
     private void printAviableAlgorithms() {
         System.out.println("Choose type of sort algorithm");
@@ -72,7 +70,7 @@ public class Menu {
     }
 
     /** 
-     * Prints availabe options for array input and take an input from the user. Metod will read data until all the condition will be met. Clears error flags and invoke sourceController.
+     * Prints availabe options for array input and take an input from the user. Metod will read data unless all the condition won't be met. Clears error flags and invoke sourceController.
      */
     private void printSourcesOfData() {
             System.out.println("Choose source of data for array");
@@ -89,7 +87,7 @@ public class Menu {
     }
 
     /**
-     * Pritns additional availabe options for input of array. Method will read data until all the condition will be met. Clear error flags and optionalVariableSource.
+     * Pritns additional options for input of array. If the input is correct, it will be proccessed. Clear error flags and invokes optionalVariableSource() if optionalVarialbe equals one (1).
      */
     private void printStateOfData() {
         System.out.println("Choose variable used for source");
@@ -102,26 +100,23 @@ public class Menu {
             optionVariable = Integer.parseInt(readData());
             checkConditions(optionVariable, 1, 2, "Undefine option");
         }while(error);
-        optionVariableSource();
+        if (optionVariable == 1)
+            optionVariableSource();
     }
 
     /*
-     *  Controler for the additiona information
+     *  Controler for the additiona information which invokes method based on the source of data.
      */
     private void optionVariableSource() {
-        if (optionVariable == 1) {
-           switch (typeOfSource) {
-                case 1 -> enterFileName(); 
-                case 2 -> enterArraySize();
-           } 
+        switch (typeOfSource) {
+            case 1 -> enterFileName(); 
+            case 2 -> enterArraySize();
         } 
-        
-
     }
 
     /**
      * Method informs user that additional informations must be provided and invokes method which will recieve those infomration. Method is used only with quick sort, because
-     * this alogirhtm provides sorting for two type of data
+     * this alogirhtm provides sorting for two type of data.
      */
     public void printAdditionalRequest() {
         System.out.println("To use quick sort algorithm you need to provide additional infomation");
@@ -132,7 +127,8 @@ public class Menu {
 
 
     /**
-     *  Method displays types of data which are enabled for quick sort alogirthm. Method will read data until the correct input is provided, checked by checkConditions. After words error variable is cleared.
+     *  Method displays types of data which are enabled for quick sort alogirthm. Method will read data unless the correct input isn't provided, checked by checkConditions. 
+     *  After the input was provided error flags are clread. 
     */
     private void printTypeOfVariableQS() {
         System.out.println("Choose data type: ");
@@ -148,7 +144,8 @@ public class Menu {
     }
 
     /**
-     * Method dipslay option of pivot placemnt in quick sort algorithm. Metod will read data until the correct input is provided, check by checkConditions. After words error variable is clear. 
+     * Method dipslay option of pivot placemnt in quick sort algorithm. Metod will read data until the correct input is provided, check by checkConditions. 
+     * If correct input was provided the error flag is cleraed.
      */
     private void printPivotPlacmentQS() {
         System.out.println("Choose pivot placment type: ");
@@ -164,8 +161,10 @@ public class Menu {
         } while(error);
 
     }
+
     /**
-     * Method servies the array based on the type of source which was provided by the user. If the appropieate data is provided function will invoke printStateOfData if no aproprite data must be providded
+     * Method servies the array based on the type of source which was provided by the user. If the appropieate data is provided function will invoke printStateOfData, 
+     * if not aproprite data must be providded by the user.
      */
     private void sourceController() {
         switch(typeOfSource) {
@@ -181,7 +180,7 @@ public class Menu {
     }
 
     /**
-     * Method enables file name 
+     * Method takes file name from user 
      */
     private void enterFileName() {
         do {
@@ -192,7 +191,7 @@ public class Menu {
     }
 
     /**
-     * Method enables size of array 
+     * Method takes size of array from user. 
      */
     private void enterArraySize() {
         System.out.println("Enter a size of array");
@@ -201,7 +200,7 @@ public class Menu {
     }
     
     /**
-     * Method reads data from standard input in case of problem with reading data. Method displays according message and returns deafult value
+     * Method reads data from standard input. In case of errors displays according message and returns deafult value
      * @return - returns data from standard input stream or deafult value which is -1
      */
     private String readData() {
@@ -251,6 +250,25 @@ public class Menu {
         }
     }
 
+    /**
+     * Restores the default values of the object.
+     */
+    public void clearFlags() {
+        algorithm = -1; 
+        typeOfSource = -1;
+        operation = -1;
+    }
+
+    /**
+     *  Method clears terminal after pressing any key and flushed the buffor. 
+     */
+    public void clearTermianl() {
+        System.out.println("Press any key to clear...");
+        readData();
+        System.out.print("\033[H\033[2J");  
+        System.out.flush();     
+    }
+
     public int getAlgorithm() {
         return algorithm;
     }
@@ -265,28 +283,6 @@ public class Menu {
 
     public int getPivot() {
         return pivotPlacmentQS;
-    }
-    /**
-     * Method reset all varaible of the object
-     */
-    public void resetValues() {
-        algorithm = -1;
-        error = false;
-    }
-
-    public void clearFlags() {
-        algorithm = -1; 
-        typeOfSource = -1;
-        operation = -1;
-    }
-    /**
-     *  Method clears terminal after pressing any key by inputing data to the stream and flushing it 
-     */
-    public void clearTermianl() {
-        System.out.println("Press any key to clear...");
-        readData();
-        System.out.print("\033[H\033[2J");  
-        System.out.flush();     
     }
 
     public String getFileName() {

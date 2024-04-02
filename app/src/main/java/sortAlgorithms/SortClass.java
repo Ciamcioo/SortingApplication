@@ -97,7 +97,7 @@ public abstract class SortClass {
     }
 
     /**
-     * Method responsible for generating reader for a file
+     * Method responsible for generating reader for a file. In case of execption returns null.
      * @return object of reader
      */
     protected BufferedReader generatBufferedReader() {
@@ -142,7 +142,7 @@ public abstract class SortClass {
     protected abstract void sortAlgorithm();
 
     /**
-     * Base invoke of sorting. Every signle desentend class have diffrent implementation of sortAlogrithm().
+     * Base invoke of sorting. Some desentend class have diffrent implementation of sortAlogrithm().
      */
     public void sorting() {
         if (size < 2000)
@@ -155,6 +155,10 @@ public abstract class SortClass {
         System.out.println("Time of sroting: " + (endTime-startTime) + " ms");
     }
 
+    /**
+     *  Method which returns a string with array content which is easy to read. 
+     * @return - string with the content of the array
+     */
     protected String printArray() {
         StringBuilder stringBuilder = new StringBuilder("[");
         for (int element : array) {
@@ -165,14 +169,17 @@ public abstract class SortClass {
         return stringBuilder.toString();
 
     }
+    /**
+     * Checks if array exists
+     * @return - the result of boolean equation which check is array is null
+     */
     public boolean checkArrayState() {
         return !(array == null);
     }
 
-    protected int getSize() {
-        return size;
-    }
-
+    /**
+     * Saves the results of sortig to the file using writer which is frislty generated. Once data has been entered, wrtier is closed.
+     */
     public void saveResults(){
         BufferedWriter writer = generaBufferedWriter() ; 
         try {
@@ -183,9 +190,13 @@ public abstract class SortClass {
         } finally {
             closeStream(writer);
         }
-
     }
 
+    /**
+     * Genereates the writer for the file with specified location. Writer is in append mode so the content of the file won't be lost. In case of errors with writer, message will be displaied to the user and
+     * method will return null.
+     * @return - object of writer if there was no erros. In other case returns null.
+     */
     private BufferedWriter generaBufferedWriter() {
         try  {
             return new BufferedWriter(new FileWriter("E:\\workspace\\JavaPrograming\\SorthingApplication\\app\\src\\main\\resources\\result.txt", true));
@@ -196,7 +207,7 @@ public abstract class SortClass {
     }
 
     /**
-     * Setter of size variable of the object which additional checking of argument
+     * Setter of size variable of the object which additional checking of argument. If size is not correct RuntimeExecption occurese.
      * @param size - size provieded by the user
      */
     protected void setSize(int size) {
@@ -206,12 +217,8 @@ public abstract class SortClass {
             new RuntimeException("Invalid size");
     }
 
-    protected String getFileName() {
-        return inputDataFailName;
-    }
-
     /**
-     * Setter of fileName variable of the object which additional is checking for emtty string 
+     * Setter of fileName variable of the object which additional is checking for emtty string. If file name is not correct RuntimeException occurses. 
      * @param fileName - fileName provided by the user
      */
     protected void setFileName(String fileName) {

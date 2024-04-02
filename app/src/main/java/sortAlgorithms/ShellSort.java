@@ -47,7 +47,7 @@ public class ShellSort extends SortClass {
      */
     private void shellSortAlgorithm() {
         for (int gap = array.length/2; gap > 0;gap/=2) 
-            iterationWithDefineGap(gap);
+            iterationWithDefineGap(array, gap);
     }
 
     /**
@@ -57,7 +57,7 @@ public class ShellSort extends SortClass {
         int gap = 0;
         for (int i = 2; gap != 1; i++) {
             gap = 2* (int) Math.abs(array.length/Math.pow(2, i)) + 1;
-            iterationWithDefineGap(gap);
+            iterationWithDefineGap(copieOfArray, gap);
         }
     }
 
@@ -65,17 +65,9 @@ public class ShellSort extends SortClass {
      * Method implementing sorthing during one iteration with predefined gap between memeory cells
      * @param gap - variable which determins the jump between memory cells
      */
-    private void iterationWithDefineGap(int gap) {
-        for (int i = array.length-1; i-gap >= 0; i--)
-            if (array[i] < array[i-gap])
+    private void iterationWithDefineGap(int[] tab, int gap) {
+        for (int i = tab.length-1; i-gap >= 0; i--)
+            if (tab[i] < tab[i-gap])
                 swap(i-gap, i);
-    }
-
-    public int[] getCopierOfArray() {
-        return copieOfArray;
-    }
-
-    public void setCopierOfArray(int[] copierOfArray) {
-        this.copieOfArray = copierOfArray;
     }
 }

@@ -3,7 +3,9 @@ package sortAlgorithms;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.Random;
+
 public class QuickSort extends SortClass {
+
     private String typeOfData;
     private int pivot;
     private float[] floatArray;
@@ -55,10 +57,13 @@ public class QuickSort extends SortClass {
     }
 
     /**
-     * Method which reads the data from the file in case user specifies data type as float
+     * Method which reads the data from the file in case user specifies data type as float. Returns if the reader is null. Reader is null when the incorrect path was provided by the user. 
+     * After the data was inserted the reader is closed.
      */
     private void readFloatsFromFile() {
         BufferedReader reader = generatBufferedReader();
+        if (reader == null) 
+            return;
         int i = -1;
         try {
             for (; reader.ready() && i < size; i++) { 
@@ -100,9 +105,14 @@ public class QuickSort extends SortClass {
         Random rand_float = new Random();
         Random rand_int = new Random();
         for (int i = 0; i < floatArray.length; i++) 
-            floatArray[i] = rand_int.nextInt(10,100) +  rand_float.nextFloat(); 
+            floatArray[i] = rand_int.nextInt(100) +  rand_float.nextFloat(); 
     }
 
+    /**
+     * Method which calculates the pivot based on the pivot location specified by the user. Overides the value specified by the user.
+     * @param left - first index of array/subarray
+     * @param right - last index of array/subarray
+     */
     private void calculatePivot(int left, int right) {
        switch (pivot) {
         case 1 -> pivot = left;
@@ -115,7 +125,7 @@ public class QuickSort extends SortClass {
      * Method parttions the array on two subarrays where the left subarray contains numbers smaller than pivot. Whereas the right array contains numbers biger than the pivot.
      * @param left - first index of subbaray
      * @param right - last index of subbaray
-     * @return - index where subbarays touches. Inclusivly for the smaller than pivot subarray and exclusivly for biger than pivot subarray.
+     * @return - Index where subbarays contact. Inclusivly for the smaller than pivot subarray and exclusivly for biger than pivot subarray.
      */
     private int partitionOfIntArray(int left, int right) {
         calculatePivot(left, right);
@@ -134,6 +144,13 @@ public class QuickSort extends SortClass {
             }
         }
     }
+
+    /**
+     * Method parttions the float array on two float subarrays where the left subarray contains numbers smaller than pivot. Whereas the right array contains numbers biger than the pivot.
+     * @param left - first index of subbaray
+     * @param right - last index of subbaray
+     * @return - Index where subbarays contact. Inclusivly for the smaller than pivot subarray and exclusivly for biger than pivot subarray.
+     */
     private int partitionOfFloatArray(int left, int right){
         calculatePivot(left, right);
         float pivot = floatArray[this.pivot];
@@ -154,7 +171,7 @@ public class QuickSort extends SortClass {
     }
 
     /**
-     * Method which contains the quickSort alogorihtm 
+     * Contains recursive quickSort alogorihtm for both type of data of object. 
      * @param left - first index of array 
      * @param right - last index of array
      */
@@ -168,8 +185,9 @@ public class QuickSort extends SortClass {
         quikcSorting(left, pod);
         quikcSorting(pod+1, right);
     }
+
     /**
-     * Implements handling swap method for both types of data
+     * Implements handling swap method for both types of data of object.
      */
     @Override
     protected void swap(int left, int right) {
@@ -183,18 +201,19 @@ public class QuickSort extends SortClass {
             array[left] = array[right];
             array[right] = tmp;
         }
-
-
     }
 
     /**
-     * Invokes the quickSorting algorithm  
+     * Invokes the quickSorting algorithm.  
      */
     @Override
     protected void sortAlgorithm() {
         quikcSorting(0, size-1);
     }
 
+    /**
+     * Checks if array is not null for type specified for object. Overriden from the SortClass class.
+     */
     @Override
     public boolean checkArrayState() {
         if (typeOfData.equals("float"))
@@ -204,7 +223,7 @@ public class QuickSort extends SortClass {
     } 
 
     /**
-     * Print prints array based on type
+     * Print prints array based on type specified for object.
      */
     @Override
     protected String printArray() {
@@ -222,10 +241,6 @@ public class QuickSort extends SortClass {
             } 
         stringBuilder.append("]");
         return stringBuilder.toString();
-    }
-
-    public int getPivot() {
-        return pivot;
     }
 
     public void setPivot(int  pivot) {
