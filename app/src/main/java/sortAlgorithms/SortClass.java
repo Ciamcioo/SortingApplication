@@ -7,6 +7,7 @@ public abstract class SortClass {
     protected int[] array = null; 
     protected String inputDataFailName = "";
     protected long timeResult = 0;
+    protected int[] unsortedArray = null; 
 
     /**
      * Constructor which as a argument takes fileName from user, calls function to set variable of the object and read data from the file 
@@ -15,6 +16,7 @@ public abstract class SortClass {
     protected SortClass(String fileName) {
         setFileName(fileName);
         readDataFromFile();
+        unsortedArray = copyArray();
     }
 
     /**
@@ -25,8 +27,10 @@ public abstract class SortClass {
      */
     protected SortClass(String filename, boolean ifReadData) {
         setFileName(filename);
-        if (ifReadData) 
+        if (ifReadData) { 
             readDataFromFile();
+            unsortedArray = copyArray();
+        }
     }
 
     /**
@@ -37,6 +41,7 @@ public abstract class SortClass {
         setSize(size);
         array = createArray();
         generateDataForArray();
+        unsortedArray = copyArray();
     }
 
     /**
@@ -50,6 +55,7 @@ public abstract class SortClass {
         if (ifReadData) {
             array = createArray();
             generateDataForArray();
+            unsortedArray = copyArray();
         }
     }
 
@@ -159,7 +165,7 @@ public abstract class SortClass {
      *  Method which returns a string with array content which is easy to read. 
      * @return - string with the content of the array
      */
-    protected String printArray() {
+    public String printArray() {
         StringBuilder stringBuilder = new StringBuilder("[");
         for (int element : array) {
             stringBuilder.append(element);
@@ -167,8 +173,22 @@ public abstract class SortClass {
         } 
         stringBuilder.append("]");
         return stringBuilder.toString();
-
     }
+
+    /**
+     * Method returns String cotaining the unsorted copy of array which was generated or loaded to program
+     * @return - string with content of unsorted array
+     */
+    public String printUnsoretedArray(){
+        StringBuilder stringBuilder = new StringBuilder("[");
+        for (int element : unsortedArray) {
+            stringBuilder.append(element);
+            stringBuilder.append(" ");
+        } 
+        stringBuilder.append("]");
+        return stringBuilder.toString();
+    }
+
     /**
      * Checks if array exists
      * @return - the result of boolean equation which check is array is null
@@ -204,6 +224,20 @@ public abstract class SortClass {
             System.out.println("Writrter generattor problem");
             return null;
         }
+    }
+
+    /**
+     * Method copies the content of generated or loaded array to second array and returns the array
+     * @return - returns newly created array with copie of content of the first array
+     */
+    protected int[] copyArray() {
+        int[] array = new int[this.array.length];
+        int i = 0;
+        for (int element : this.array) {
+            array[i] = element;
+            i++; 
+        }
+        return array;
     }
 
     /**

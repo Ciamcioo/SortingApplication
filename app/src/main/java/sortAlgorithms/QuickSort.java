@@ -9,6 +9,7 @@ public class QuickSort extends SortClass {
     private String typeOfData;
     private int pivot;
     private float[] floatArray;
+    private float[] unsortedFloatArray;
 
     public QuickSort(int size, int pivot) {
         super(size);
@@ -33,6 +34,7 @@ public class QuickSort extends SortClass {
         if (typeOfData.equals("float")) {
             floatArray = new float[size];
             generateFloatsForArray();
+            unsortedFloatArray = copyFloatArray();
         } 
         else 
             printErrorMessage();
@@ -48,8 +50,10 @@ public class QuickSort extends SortClass {
      */
     public QuickSort(String fileName, String typeOfData, int pivot) {
         super(fileName, !typeOfData.equals("float"));
-        if (typeOfData.equals("float")) 
+        if (typeOfData.equals("float")) { 
             readFloatsFromFile();
+            unsortedFloatArray = copyFloatArray();
+        }
         else 
             printErrorMessage();
         setPivot(pivot);
@@ -223,10 +227,31 @@ public class QuickSort extends SortClass {
     } 
 
     /**
-     * Print prints array based on type specified for object.
+     *  Method prints unsorted array based on type specified for the object
      */
     @Override
-    protected String printArray() {
+    public String printUnsoretedArray() {
+        StringBuilder stringBuilder = new StringBuilder("[");
+        if (typeOfData.equals("float")) {
+            for (float element : unsortedFloatArray) {
+                stringBuilder.append(element);
+                stringBuilder.append(" ");
+            }
+        }
+        else 
+            for (int element : unsortedArray) {
+                stringBuilder.append(element);
+                stringBuilder.append(" ");
+            } 
+        stringBuilder.append("]");
+        return stringBuilder.toString();
+    }
+
+    /**
+     * Method prints array based on type specified for object.
+     */
+    @Override
+    public String printArray() {
         StringBuilder stringBuilder = new StringBuilder("[");
         if (typeOfData.equals("float")) {
             for (float element : floatArray) {
@@ -245,6 +270,16 @@ public class QuickSort extends SortClass {
 
     public void setPivot(int  pivot) {
         this.pivot = pivot;
+    }
+
+    private float[] copyFloatArray() {
+        float[] floatArray = new float[this.floatArray.length];
+        int i = 0;
+        for (float element : this.floatArray) {
+            floatArray[i] = element;
+            i++;
+        }
+        return floatArray; 
     }
 
 }

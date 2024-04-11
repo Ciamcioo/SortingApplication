@@ -3,34 +3,38 @@ import java.io.*;
 
 
 import main.App;
+import sortAlgorithms.SortClass;
 public class Menu {
     private static BufferedReader reader;
     private int algorithm = -1, typeOfSource = -1, operation = -1, size = -1, optionVariable = -1, qsDataType = -1, pivotPlacmentQS = -1  ;
     private String fileName = null;
     private boolean error = false;
+    private SortClass currentAlgorithm;
 
     /**
      *  Prints main menu of application, as an input takes number relating to next operations. Input will be read unless it is not correct. After that error variable is cleared and operationControllers is invoked.
      */
     public void printOperations() {
-       reader = new BufferedReader(new InputStreamReader(System.in));
-       System.out.println("---------------------------------------");
-       System.out.println("Sorting Algortihms Application");
-       System.out.println("---------------------------------------");
-       System.out.println();
-       System.out.println("Choose operation");
-       System.out.println("1. Sort an array");
-       System.out.println("2. Entere fileName");
-       System.out.println("3. Print current fileName");
-       System.out.println("4. Enter size of array");
-       System.out.println("5. Print current array size");
-       System.out.println("6. Exit");
-       System.out.println("Enter a number related to operation");
+        reader = new BufferedReader(new InputStreamReader(System.in));
+        System.out.println("---------------------------------------");
+        System.out.println("Sorting Algortihms Application");
+        System.out.println("---------------------------------------");
+        System.out.println();
+        System.out.println("Choose operation");
+        System.out.println("1. Sort an array");
+        System.out.println("2. Entere fileName");
+        System.out.println("3. Print current fileName");
+        System.out.println("4. Enter size of array");
+        System.out.println("5. Print current array size");
+        System.out.println("6. Print unsorted array");
+        System.out.println("7. Print sorted array");
+        System.out.println("8. Exit");
+        System.out.println("Enter a number related to operation");
        do {
             clearsError();
             System.out.print("> ");
             operation =  Integer.parseInt(readData());
-            checkConditions(operation, 1, 6, "Undefined operation");
+            checkConditions(operation, 1, 8, "Undefined operation");
        } while(error);
        operationController();
     }
@@ -45,7 +49,9 @@ public class Menu {
             case 3 -> System.out.println("Current file name: " + fileName);
             case 4 -> enterArraySize(); 
             case 5 -> System.out.println("Current size of array: " + size);
-            case 6 -> App.exitApp(); 
+            case 6 -> System.out.println(currentAlgorithm.printUnsoretedArray()); 
+            case 7 -> System.out.println(currentAlgorithm.printArray());
+            case 8 -> App.exitApp(); 
         }
 
     }
@@ -198,6 +204,7 @@ public class Menu {
         System.out.print("> ");
         size = Integer.parseInt(readData());
     }
+
     
     /**
      * Method reads data from standard input. In case of errors displays according message and returns deafult value
@@ -291,6 +298,11 @@ public class Menu {
 
     public int getSize() {
         return size;
+    }
+
+    public void setCurrentAlgorithm(SortClass alg) {
+        if (alg != null)
+            currentAlgorithm = alg;
     }
 }
 

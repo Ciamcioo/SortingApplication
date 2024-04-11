@@ -47,24 +47,28 @@ public class App {
                     return; 
                 heapSort.sorting();
                 heapSort.saveResults();
+                menu.setCurrentAlgorithm(heapSort);
             }
             case 2 -> {
                 if(!insertSort.checkArrayState())
                     return; 
                 insertSort.sorting();
                 insertSort.saveResults();
+                menu.setCurrentAlgorithm(insertSort);
             }
             case 3 -> { 
                 if(!quikcSort.checkArrayState())
                     return; 
                 quikcSort.sorting();
                 quikcSort.saveResults();
+                menu.setCurrentAlgorithm(quikcSort);
             }
             case 4 -> {
                 if(!shellSort.checkArrayState())
                     return; 
                 shellSort.sorting();
                 shellSort.saveResults();
+                menu.setCurrentAlgorithm(shellSort);
             }
         }
         
