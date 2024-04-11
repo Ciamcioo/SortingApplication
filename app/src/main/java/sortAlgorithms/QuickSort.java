@@ -209,7 +209,7 @@ public class QuickSort extends SortClass {
 
 
     /**
-     * Invokes the quickSorting algorithm.  
+     * Invokes the quickSorting algorithm. Additional to check if type of array is float.   
      */
     @Override
     protected void sortAlgorithm() {
@@ -271,10 +271,11 @@ public class QuickSort extends SortClass {
         return stringBuilder.toString();
     }
 
-    public void setPivot(int  pivot) {
-        this.pivot = pivot;
-    }
-
+    /**
+     *  Method copies generated/loaded/saved source float array to new float array 
+     * @param source - float array from which data will be read
+     * @return - returns new float array which is copie of source array
+     */
     private float[] copyFloatArray(float[] source) {
         float[] floatArray = new float[this.floatArray.length];
         int i = 0;
@@ -285,4 +286,7 @@ public class QuickSort extends SortClass {
         return floatArray; 
     }
 
+    public void setPivot(int  pivot) {
+        this.pivot = pivot;
+    }
 }

@@ -209,6 +209,9 @@ public class Menu {
         size = Integer.parseInt(readData());
     }
 
+    /**
+     * Method takes user input which will be interpreted as number of repetitions
+     */
     private void enterNumberOfRepetitions(){
         System.out.println("Enter a number of repetitions");
         System.out.print("> ");
