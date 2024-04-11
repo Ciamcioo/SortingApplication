@@ -45,6 +45,7 @@ public class App {
             case 1 -> { 
                 if(!heapSort.checkArrayState())
                     return; 
+                heapSort.setNumberOfRepetitions(menu.getNumOfRepetitions());
                 heapSort.sorting();
                 heapSort.saveResults();
                 menu.setCurrentAlgorithm(heapSort);
@@ -52,6 +53,7 @@ public class App {
             case 2 -> {
                 if(!insertSort.checkArrayState())
                     return; 
+                insertSort.setNumberOfRepetitions(menu.getNumOfRepetitions());
                 insertSort.sorting();
                 insertSort.saveResults();
                 menu.setCurrentAlgorithm(insertSort);
@@ -59,6 +61,7 @@ public class App {
             case 3 -> { 
                 if(!quikcSort.checkArrayState())
                     return; 
+                quikcSort.setNumberOfRepetitions(menu.getNumOfRepetitions());
                 quikcSort.sorting();
                 quikcSort.saveResults();
                 menu.setCurrentAlgorithm(quikcSort);
@@ -66,6 +69,7 @@ public class App {
             case 4 -> {
                 if(!shellSort.checkArrayState())
                     return; 
+                shellSort.setNumberOfRepetitions(menu.getNumOfRepetitions());
                 shellSort.sorting();
                 shellSort.saveResults();
                 menu.setCurrentAlgorithm(shellSort);

@@ -34,7 +34,7 @@ public class QuickSort extends SortClass {
         if (typeOfData.equals("float")) {
             floatArray = new float[size];
             generateFloatsForArray();
-            unsortedFloatArray = copyFloatArray();
+            unsortedFloatArray = copyFloatArray(floatArray);
         } 
         else 
             printErrorMessage();
@@ -52,7 +52,7 @@ public class QuickSort extends SortClass {
         super(fileName, !typeOfData.equals("float"));
         if (typeOfData.equals("float")) { 
             readFloatsFromFile();
-            unsortedFloatArray = copyFloatArray();
+            unsortedFloatArray = copyFloatArray(floatArray);
         }
         else 
             printErrorMessage();
@@ -207,12 +207,15 @@ public class QuickSort extends SortClass {
         }
     }
 
+
     /**
      * Invokes the quickSorting algorithm.  
      */
     @Override
     protected void sortAlgorithm() {
         quikcSorting(0, size-1);
+        if (floatArray != null)
+            floatArray = copyFloatArray(unsortedFloatArray);
     }
 
     /**
@@ -272,7 +275,7 @@ public class QuickSort extends SortClass {
         this.pivot = pivot;
     }
 
-    private float[] copyFloatArray() {
+    private float[] copyFloatArray(float[] source) {
         float[] floatArray = new float[this.floatArray.length];
         int i = 0;
         for (float element : this.floatArray) {

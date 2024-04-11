@@ -3,7 +3,7 @@ import java.io.*;
 import java.util.Random;
 
 public abstract class SortClass {
-    protected int size = 0;
+    protected int size = 0, numberOfRepetitions = 1;
     protected int[] array = null; 
     protected String inputDataFailName = "";
     protected long timeResult = 0;
@@ -16,7 +16,7 @@ public abstract class SortClass {
     protected SortClass(String fileName) {
         setFileName(fileName);
         readDataFromFile();
-        unsortedArray = copyArray();
+        unsortedArray = copyArray(array);
     }
 
     /**
@@ -29,7 +29,7 @@ public abstract class SortClass {
         setFileName(filename);
         if (ifReadData) { 
             readDataFromFile();
-            unsortedArray = copyArray();
+            unsortedArray = copyArray(array);
         }
     }
 
@@ -41,7 +41,7 @@ public abstract class SortClass {
         setSize(size);
         array = createArray();
         generateDataForArray();
-        unsortedArray = copyArray();
+        unsortedArray = copyArray(array);
     }
 
     /**
@@ -55,7 +55,7 @@ public abstract class SortClass {
         if (ifReadData) {
             array = createArray();
             generateDataForArray();
-            unsortedArray = copyArray();
+            unsortedArray = copyArray(array);
         }
     }
 
@@ -151,14 +151,20 @@ public abstract class SortClass {
      * Base invoke of sorting. Some desentend class have diffrent implementation of sortAlogrithm().
      */
     public void sorting() {
-        if (size < 2000)
-            System.out.println("Array before sorting: " + printArray());
-        long startTime = System.currentTimeMillis(); 
-        sortAlgorithm();
-        long endTime = System.currentTimeMillis(); 
-        if (size < 2000)
-            System.out.println("Array after sorting: " +  printArray());
-        System.out.println("Time of sroting: " + (endTime-startTime) + " ms");
+        for (int i = 0; i < numberOfRepetitions; i++) {
+            if (size < 2000 && numberOfRepetitions > 10) 
+                System.out.println("Array before sorting: " + printArray());
+            long startTime = System.currentTimeMillis(); 
+            sortAlgorithm();
+            long endTime = System.currentTimeMillis(); 
+            if (size < 2000 && numberOfRepetitions > 10)
+                System.out.println("Array after sorting: " +  printArray());
+            timeResult += (endTime- startTime); 
+            if (array != null)
+                array = copyArray(unsortedArray);
+        }
+        timeResult = Math.ceilDiv(timeResult, numberOfRepetitions);
+        System.out.println("Avrage time of sroting: " + timeResult + " ms for " + numberOfRepetitions + " number of repetitions");
     }
 
     /**
@@ -203,7 +209,7 @@ public abstract class SortClass {
     public void saveResults(){
         BufferedWriter writer = generaBufferedWriter() ; 
         try {
-            writer.write("Time of sorting: " + timeResult + " ms");
+            writer.write("Avrage time of sroting: " + timeResult + " ms for " + numberOfRepetitions + " number of repetitions");
             writer.newLine();
         } catch (Exception e) {
             System.out.println("Line cound't be saved to file");
@@ -230,10 +236,10 @@ public abstract class SortClass {
      * Method copies the content of generated or loaded array to second array and returns the array
      * @return - returns newly created array with copie of content of the first array
      */
-    protected int[] copyArray() {
-        int[] array = new int[this.array.length];
+    protected int[] copyArray(int[] source) {
+        int[] array = new int[source.length];
         int i = 0;
-        for (int element : this.array) {
+        for (int element : source) {
             array[i] = element;
             i++; 
         }
@@ -260,5 +266,12 @@ public abstract class SortClass {
             inputDataFailName = fileName; 
         else
             new RuntimeException("Invalid fileName");
+    }
+
+    public void setNumberOfRepetitions(int numberOfRepetitions) {
+        if (numberOfRepetitions > 1)
+            this.numberOfRepetitions = numberOfRepetitions;
+        else
+            this.numberOfRepetitions = 1;
     }
 }

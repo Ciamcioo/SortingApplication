@@ -6,7 +6,7 @@ import main.App;
 import sortAlgorithms.SortClass;
 public class Menu {
     private static BufferedReader reader;
-    private int algorithm = -1, typeOfSource = -1, operation = -1, size = -1, optionVariable = -1, qsDataType = -1, pivotPlacmentQS = -1  ;
+    private int algorithm = -1, typeOfSource = -1, operation = -1, size = -1, optionVariable = -1, qsDataType = -1, pivotPlacmentQS = -1, numOfRepetition = 1  ;
     private String fileName = null;
     private boolean error = false;
     private SortClass currentAlgorithm;
@@ -28,13 +28,15 @@ public class Menu {
         System.out.println("5. Print current array size");
         System.out.println("6. Print unsorted array");
         System.out.println("7. Print sorted array");
-        System.out.println("8. Exit");
+        System.out.println("8. Print number of repetions of sorting");
+        System.out.println("9. Set number of repetitons of sorting");
+        System.out.println("10. Exit");
         System.out.println("Enter a number related to operation");
        do {
             clearsError();
             System.out.print("> ");
             operation =  Integer.parseInt(readData());
-            checkConditions(operation, 1, 8, "Undefined operation");
+            checkConditions(operation, 1, 10, "Undefined operation");
        } while(error);
        operationController();
     }
@@ -51,7 +53,9 @@ public class Menu {
             case 5 -> System.out.println("Current size of array: " + size);
             case 6 -> System.out.println(currentAlgorithm.printUnsoretedArray()); 
             case 7 -> System.out.println(currentAlgorithm.printArray());
-            case 8 -> App.exitApp(); 
+            case 8 -> System.out.println("Current number of repetitions: " + numOfRepetition); 
+            case 9 -> enterNumberOfRepetitions(); 
+            case 10 -> App.exitApp(); 
         }
 
     }
@@ -87,7 +91,7 @@ public class Menu {
             clearsError();
             System.out.print("> ");
             typeOfSource = Integer.parseInt(readData());
-            checkConditions(typeOfSource, 1, 2, "Undefine source");
+            checkConditions(typeOfSource, 1, 3, "Undefine source");
         }while(error);
         sourceController();
     }
@@ -205,6 +209,12 @@ public class Menu {
         size = Integer.parseInt(readData());
     }
 
+    private void enterNumberOfRepetitions(){
+        System.out.println("Enter a number of repetitions");
+        System.out.print("> ");
+        setNumOfRepetions(Integer.parseInt(readData())); 
+    }
+
     
     /**
      * Method reads data from standard input. In case of errors displays according message and returns deafult value
@@ -304,5 +314,14 @@ public class Menu {
         if (alg != null)
             currentAlgorithm = alg;
     }
+    
+    public int getNumOfRepetitions() {
+        return numOfRepetition;
+    }
+    public void setNumOfRepetions(int numberOfRepetitions) { 
+        if (numberOfRepetitions > 1)
+            numOfRepetition = numberOfRepetitions;
+        else
+            numOfRepetition = 1;
+    }
 }
-

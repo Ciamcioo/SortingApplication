@@ -5,12 +5,12 @@ public class ShellSort extends SortClass {
 
     public ShellSort(String fileName) {
         super(fileName);
-        copieOfArray = copyArray();
+        copieOfArray = copyArray(array);
     }
 
     public ShellSort(int size) {
         super(size);
-        copieOfArray = copyArray();
+        copieOfArray = copyArray(array);
     }
 
     /**
