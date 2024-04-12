@@ -1,13 +1,13 @@
 package sortAlgorithms;
+
 import java.io.*;
 import java.util.Random;
 
 public abstract class SortClass {
     protected int size = 0, numberOfRepetitions = 1;
-    protected int[] array = null; 
+    protected int[] array = null, unsortedArray = null; 
     protected String inputDataFailName = "";
     protected long timeResult = 0;
-    protected int[] unsortedArray = null; 
 
     /**
      * Constructor which as a argument takes fileName from user, calls function to set variable of the object and read data from the file 
@@ -68,20 +68,17 @@ public abstract class SortClass {
         BufferedReader reader = generatBufferedReader();
         if (reader == null) 
             return;
-        int i = -1;
         try {
-            for (; reader.ready() && i < size; i++) { 
-                if (array == null) {
-                    setSize(Integer.parseInt(reader.readLine()));
-                    array = createArray();
-                    i++;
-                }
+            setSize(Integer.parseInt(reader.readLine()));
+            array = createArray();
+            for (int i = 0; reader.ready() && i < size; i++) { 
                 array[i] = Integer.parseInt(reader.readLine());
             }
-        } catch (NumberFormatException | IOException | NullPointerException e) {
+        } 
+        catch (NumberFormatException | IOException | NullPointerException e) {
             System.out.println("Problem with reading data from file");
-            System.out.println("Reader has stoped on line number: " + i);
-        } finally{
+        } 
+        finally{
             closeStream(reader);
         }
     }
@@ -181,20 +178,6 @@ public abstract class SortClass {
     }
 
     /**
-     * Method returns String cotaining the unsorted copy of array which was generated or loaded to program
-     * @return - string with content of unsorted array
-     */
-    public String printUnsoretedArray(){
-        StringBuilder stringBuilder = new StringBuilder("[");
-        for (int element : unsortedArray) {
-            stringBuilder.append(element);
-            stringBuilder.append(" ");
-        } 
-        stringBuilder.append("]");
-        return stringBuilder.toString();
-    }
-
-    /**
      * Checks if array exists
      * @return - the result of boolean equation which check is array is null
      */
@@ -208,7 +191,7 @@ public abstract class SortClass {
     public void saveResults(){
         BufferedWriter writer = generaBufferedWriter() ; 
         try {
-            writer.write("Avrage time of sroting: " + timeResult + " ms for " + numberOfRepetitions + " number of repetitions");
+            writer.write("Avrage time of sroting: " + timeResult + " ms for " + numberOfRepetitions + " number of repetitions for " + this.getClass());
             writer.newLine();
         } catch (Exception e) {
             System.out.println("Line cound't be saved to file");
@@ -222,7 +205,7 @@ public abstract class SortClass {
      * method will return null.
      * @return - object of writer if there was no erros. In other case returns null.
      */
-    private BufferedWriter generaBufferedWriter() {
+    protected BufferedWriter generaBufferedWriter() {
         try  {
             return new BufferedWriter(new FileWriter("E:\\workspace\\JavaPrograming\\SorthingApplication\\app\\src\\main\\resources\\result.txt", true));
         } catch (Exception e) {
@@ -277,6 +260,10 @@ public abstract class SortClass {
     }
 
     public int[] getArray() {
+        return array;
+    }
+
+    public int[] getUnsortedArray() {
         return array;
     }
 }
