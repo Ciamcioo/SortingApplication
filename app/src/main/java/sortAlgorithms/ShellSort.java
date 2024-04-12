@@ -20,17 +20,18 @@ public class ShellSort extends SortClass {
     public void sorting() {
         System.out.println("Shell class has two implementations of calculating the algorithm's gap to show time differences between those two algorithms");
         if (array.length < 2000)
-            System.out.println("Both arrays before sorting: " + printArray()); 
+            System.out.println("Both arrays before sorting: " + printArray(array)); 
         long startTime = System.currentTimeMillis();
         shellSortAlgorithm();
         long endTime = System.currentTimeMillis();
         System.out.println("Time of sorting with default gap in Shell alogorithm: " + (endTime - startTime) + " ms");
+        array = copyArray(unsortedArray);
         startTime = System.currentTimeMillis();
         hibbardSortAlgorithm();
         endTime = System.currentTimeMillis();
         System.out.println("Time of sorting with Hibbard gap in Shell algorithm:  " + (endTime - startTime) + " ms");
         if (array.length < 2000)
-            System.out.println("Both arrays after sorting: " + printArray());
+            System.out.println("Both arrays after sorting: " + printArray(array));
     }
 
     /**

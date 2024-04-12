@@ -153,15 +153,14 @@ public abstract class SortClass {
     public void sorting() {
         for (int i = 0; i < numberOfRepetitions; i++) {
             if (size < 2000 && numberOfRepetitions > 10) 
-                System.out.println("Array before sorting: " + printArray());
+                System.out.println("Array before sorting: " + printArray(array));
             long startTime = System.currentTimeMillis(); 
             sortAlgorithm();
             long endTime = System.currentTimeMillis(); 
             if (size < 2000 && numberOfRepetitions > 10)
-                System.out.println("Array after sorting: " +  printArray());
+                System.out.println("Array after sorting: " +  printArray(array));
             timeResult += (endTime- startTime); 
-            if (array != null)
-                array = copyArray(unsortedArray);
+            array = copyArray(unsortedArray);
         }
         timeResult = Math.ceilDiv(timeResult, numberOfRepetitions);
         System.out.println("Avrage time of sroting: " + timeResult + " ms for " + numberOfRepetitions + " number of repetitions");
@@ -171,9 +170,9 @@ public abstract class SortClass {
      *  Method which returns a string with array content which is easy to read. 
      * @return - string with the content of the array
      */
-    public String printArray() {
+    public String printArray(int[] source) {
         StringBuilder stringBuilder = new StringBuilder("[");
-        for (int element : array) {
+        for (int element : source) {
             stringBuilder.append(element);
             stringBuilder.append(" ");
         } 
@@ -237,6 +236,8 @@ public abstract class SortClass {
      * @return - returns newly created array with copie of content of the first array
      */
     protected int[] copyArray(int[] source) {
+        if (!checkArrayState())
+            return null;
         int[] array = new int[source.length];
         int i = 0;
         for (int element : source) {
@@ -273,5 +274,9 @@ public abstract class SortClass {
             this.numberOfRepetitions = numberOfRepetitions;
         else
             this.numberOfRepetitions = 1;
+    }
+
+    public int[] getArray() {
+        return array;
     }
 }
