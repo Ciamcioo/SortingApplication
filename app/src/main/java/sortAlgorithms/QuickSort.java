@@ -14,13 +14,13 @@ public class QuickSort extends SortClass {
     public QuickSort(int size, int pivot) {
         super(size);
         setPivot(pivot);
-        typeOfData = "int";
+        setTypeOfData(null);
     }
 
     public QuickSort(String fileName, int pivot) {
         super(fileName);
         setPivot(pivot);
-        typeOfData = "int";
+        setTypeOfData(null);
     }
 
     /**
@@ -30,16 +30,15 @@ public class QuickSort extends SortClass {
      * @param pivot  - point on pivot which should be use while sorting specified by user
     */
     public QuickSort(int size, String typeOfData, int pivot) {
-        super(size, !typeOfData.equals("float"));
-        if (typeOfData.equals("float")) {
-            floatArray = new float[size];
-            generateFloatsForArray();
+        super(size, !checkIfDataTypeFloat(typeOfData));
+        if (checkIfDataTypeFloat(typeOfData)) {
+            floatArray = generateFloatsArray(size);
             unsortedFloatArray = copyFloatArray(floatArray);
         } 
         else 
             printErrorMessage();
         setPivot(pivot);
-        this.typeOfData = typeOfData;
+        setTypeOfData(typeOfData);
     }
 
     /**
@@ -49,15 +48,15 @@ public class QuickSort extends SortClass {
      * @param pivot - point on pivot which should be use while sorting specified by user
      */
     public QuickSort(String fileName, String typeOfData, int pivot) {
-        super(fileName, !typeOfData.equals("float"));
-        if (typeOfData.equals("float")) { 
+        super(fileName, !checkIfDataTypeFloat(typeOfData));
+        if (checkIfDataTypeFloat(typeOfData)) { 
             readFloatsFromFile();
             unsortedFloatArray = copyFloatArray(floatArray);
         }
         else 
             printErrorMessage();
         setPivot(pivot);
-        this.typeOfData = typeOfData;
+        setTypeOfData(typeOfData); 
     }
 
     /**
@@ -68,19 +67,13 @@ public class QuickSort extends SortClass {
         BufferedReader reader = generatBufferedReader();
         if (reader == null) 
             return;
-        int i = -1;
         try {
-            for (; reader.ready() && i < size; i++) { 
-                if (floatArray == null) {
-                    setSize(Integer.parseInt(reader.readLine()));
-                    floatArray = generateFloatArray();
-                    i++;
-                }
+            setSize(Integer.parseInt(reader.readLine()));
+            floatArray = createFloatArray();
+            for (int i = 0; reader.ready() && i < this.size; i++)   
                 floatArray[i] = Float.parseFloat(reader.readLine());
-            }
         } catch (NumberFormatException | IOException e) {
             System.out.println("Problem with reading data from file");
-            System.out.println("Reader has stoped on line number: " + i);
         } finally{
             closeStream(reader);
         }
@@ -90,7 +83,7 @@ public class QuickSort extends SortClass {
      * Method which genrates float array in case user specifies data type as float  
      * @return - float array of specific size
      */
-    private float[] generateFloatArray() {
+    private float[] createFloatArray() {
         return new float[size];
     }
 
@@ -105,11 +98,13 @@ public class QuickSort extends SortClass {
     /**
      * Method generates random float data and insert it into the float array
      */
-    private void generateFloatsForArray() {
+    private float[] generateFloatsArray(int size) {
+        float[] array = createFloatArray();  
         Random rand_float = new Random();
         Random rand_int = new Random();
         for (int i = 0; i < floatArray.length; i++) 
             floatArray[i] = rand_int.nextInt(100) +  rand_float.nextFloat(); 
+        return array;
     }
 
     /**
@@ -195,7 +190,7 @@ public class QuickSort extends SortClass {
      */
     @Override
     protected void swap(int left, int right) {
-        if (typeOfData.equals("float")) {
+        if (checkIfDataTypeFloat(this.typeOfData)){
             float tmp = floatArray[right];
             floatArray[right] = floatArray[left];
             floatArray[left] = tmp;
@@ -214,8 +209,7 @@ public class QuickSort extends SortClass {
     @Override
     protected void sortAlgorithm() {
         quikcSorting(0, size-1);
-        if (floatArray != null)
-            floatArray = copyFloatArray(unsortedFloatArray);
+        floatArray = copyFloatArray(unsortedFloatArray);
     }
 
     /**
@@ -223,50 +217,28 @@ public class QuickSort extends SortClass {
      */
     @Override
     public boolean checkArrayState() {
-        if (typeOfData.equals("float"))
+        if (checkIfDataTypeFloat(this.typeOfData))
             return !(floatArray == null);
         else 
             return !(array == null);
     } 
 
     /**
-     *  Method prints unsorted array based on type specified for the object
-     */
-    @Override
-    public String printUnsoretedArray() {
-        StringBuilder stringBuilder = new StringBuilder("[");
-        if (typeOfData.equals("float")) {
-            for (float element : unsortedFloatArray) {
-                stringBuilder.append(element);
-                stringBuilder.append(" ");
-            }
-        }
-        else 
-            for (int element : unsortedArray) {
-                stringBuilder.append(element);
-                stringBuilder.append(" ");
-            } 
-        stringBuilder.append("]");
-        return stringBuilder.toString();
-    }
-
-    /**
      * Method prints array based on type specified for object.
      */
     @Override
-    public String printArray() {
+    public String printArray(int[] sourceArray) {
         StringBuilder stringBuilder = new StringBuilder("[");
-        if (typeOfData.equals("float")) {
-            for (float element : floatArray) {
-                stringBuilder.append(element);
-                stringBuilder.append(" ");
-            }
-        }
+        if (checkIfDataTypeFloat(this.typeOfData)) 
+            if (sourceArray == this.unsortedArray)
+                for (float element : this.unsortedFloatArray) 
+                    stringBuilder.append(element).append(" ");
+            else
+                for (float element : this.floatArray)
+                    stringBuilder.append(element).append(" ");
         else 
-            for (int element : array) {
-                stringBuilder.append(element);
-                stringBuilder.append(" ");
-            } 
+            for (int element : sourceArray) 
+                stringBuilder.append(element).append(" ");
         stringBuilder.append("]");
         return stringBuilder.toString();
     }
@@ -277,16 +249,27 @@ public class QuickSort extends SortClass {
      * @return - returns new float array which is copie of source array
      */
     private float[] copyFloatArray(float[] source) {
-        float[] floatArray = new float[this.floatArray.length];
-        int i = 0;
-        for (float element : this.floatArray) {
-            floatArray[i] = element;
-            i++;
-        }
+        if (checkArrayState())
+            return null; 
+        float[] floatArray = createFloatArray(); 
+        for (int i = 0; i < source.length; i++) 
+            floatArray[i] = source[i];
         return floatArray; 
     }
 
     public void setPivot(int  pivot) {
         this.pivot = pivot;
     }
+
+    public void setTypeOfData(String typeOfData) {
+        if (checkIfDataTypeFloat(typeOfData))
+            typeOfData = "float";
+        else
+            typeOfData = "int";
+    }
+
+    private static boolean checkIfDataTypeFloat(String typeOfData) {
+        return typeOfData.equals("float");
+    }
 }
+
