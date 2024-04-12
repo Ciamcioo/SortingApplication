@@ -1,12 +1,12 @@
 package menu;
+
 import java.io.*;
-
-
 import main.App;
 import sortAlgorithms.SortClass;
+
 public class Menu {
     private static BufferedReader reader;
-    private int algorithm = -1, typeOfSource = -1, operation = -1, size = -1, optionVariable = -1, qsDataType = -1, pivotPlacmentQS = -1, numOfRepetition = 1  ;
+    private int algorithm = -1, typeOfSource = -1, operation = -1, size = -1, dataSource = -1, qsDataType = -1, pivotPlacmentQS = -1, numOfRepetition = 1  ;
     private String fileName = null;
     private boolean error = false;
     private SortClass currentAlgorithm;
@@ -51,8 +51,8 @@ public class Menu {
             case 3 -> System.out.println("Current file name: " + fileName);
             case 4 -> enterArraySize(); 
             case 5 -> System.out.println("Current size of array: " + size);
-            case 6 -> System.out.println(currentAlgorithm.printUnsoretedArray()); 
-            case 7 -> System.out.println(currentAlgorithm.printArray());
+            case 6 -> System.out.println(currentAlgorithm.printArray(currentAlgorithm.getUnsortedArray())); 
+            case 7 -> System.out.println(currentAlgorithm.printArray(currentAlgorithm.getArray()));
             case 8 -> System.out.println("Current number of repetitions: " + numOfRepetition); 
             case 9 -> enterNumberOfRepetitions(); 
             case 10 -> App.exitApp(); 
@@ -107,10 +107,10 @@ public class Menu {
         do {
             clearsError();
             System.out.print("> ");
-            optionVariable = Integer.parseInt(readData());
-            checkConditions(optionVariable, 1, 2, "Undefine option");
+            dataSource = Integer.parseInt(readData());
+            checkConditions(dataSource, 1, 2, "Undefine option");
         }while(error);
-        if (optionVariable == 1)
+        if (dataSource == 1)
             optionVariableSource();
     }
 
@@ -169,7 +169,6 @@ public class Menu {
             pivotPlacmentQS = Integer.parseInt(readData()); 
             checkConditions(qsDataType, 1, 3, "Undefinded pivot placment");
         } while(error);
-
     }
 
     /**
