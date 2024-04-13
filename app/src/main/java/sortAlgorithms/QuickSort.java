@@ -14,13 +14,13 @@ public class QuickSort extends SortClass {
     public QuickSort(int size, int pivot) {
         super(size);
         setPivot(pivot);
-        setTypeOfData(null);
+        setTypeOfData("int");
     }
 
     public QuickSort(String fileName, int pivot) {
         super(fileName);
         setPivot(pivot);
-        setTypeOfData(null);
+        setTypeOfData("int");
     }
 
     /**
@@ -31,14 +31,12 @@ public class QuickSort extends SortClass {
     */
     public QuickSort(int size, String typeOfData, int pivot) {
         super(size, !checkIfDataTypeFloat(typeOfData));
-        if (checkIfDataTypeFloat(typeOfData)) {
-            floatArray = generateFloatsArray(size);
-            unsortedFloatArray = copyFloatArray(floatArray);
-        } 
-        else 
-            printErrorMessage();
         setPivot(pivot);
         setTypeOfData(typeOfData);
+        if (checkIfDataTypeFloat(typeOfData)) 
+            floatArray = generateFloatsArray(size);
+        else 
+            printErrorMessage();
     }
 
     /**
@@ -49,14 +47,12 @@ public class QuickSort extends SortClass {
      */
     public QuickSort(String fileName, String typeOfData, int pivot) {
         super(fileName, !checkIfDataTypeFloat(typeOfData));
-        if (checkIfDataTypeFloat(typeOfData)) { 
+        setTypeOfData(typeOfData); 
+        setPivot(pivot);
+        if (checkIfDataTypeFloat(typeOfData))  
             readFloatsFromFile();
-            unsortedFloatArray = copyFloatArray(floatArray);
-        }
         else 
             printErrorMessage();
-        setPivot(pivot);
-        setTypeOfData(typeOfData); 
     }
 
     /**
@@ -84,7 +80,7 @@ public class QuickSort extends SortClass {
      * @return - float array of specific size
      */
     private float[] createFloatArray() {
-        return new float[size];
+        return new float[this.size];
     }
 
     /**
@@ -102,8 +98,8 @@ public class QuickSort extends SortClass {
         float[] array = createFloatArray();  
         Random rand_float = new Random();
         Random rand_int = new Random();
-        for (int i = 0; i < floatArray.length; i++) 
-            floatArray[i] = rand_int.nextInt(100) +  rand_float.nextFloat(); 
+        for (int i = 0; i < array.length; i++) 
+            array[i] = rand_int.nextInt(100) +  rand_float.nextFloat(); 
         return array;
     }
 
@@ -208,8 +204,11 @@ public class QuickSort extends SortClass {
      */
     @Override
     protected void sortAlgorithm() {
+        if (checkIfDataTypeFloat(this.typeOfData))
+            floatArray = copyFloatArray(unsortedFloatArray);
+        else
+            array = copyArray(unsortedArray); 
         quikcSorting(0, size-1);
-        floatArray = copyFloatArray(unsortedFloatArray);
     }
 
     /**
@@ -230,12 +229,8 @@ public class QuickSort extends SortClass {
     public String printArray(int[] sourceArray) {
         StringBuilder stringBuilder = new StringBuilder("[");
         if (checkIfDataTypeFloat(this.typeOfData)) 
-            if (sourceArray == this.unsortedArray)
-                for (float element : this.unsortedFloatArray) 
-                    stringBuilder.append(element).append(" ");
-            else
-                for (float element : this.floatArray)
-                    stringBuilder.append(element).append(" ");
+            for (float element : floatArray)
+                stringBuilder.append(element).append(" ");
         else 
             for (int element : sourceArray) 
                 stringBuilder.append(element).append(" ");
@@ -249,12 +244,20 @@ public class QuickSort extends SortClass {
      * @return - returns new float array which is copie of source array
      */
     private float[] copyFloatArray(float[] source) {
-        if (checkArrayState())
+        if (!checkArrayState())
             return null; 
         float[] floatArray = createFloatArray(); 
         for (int i = 0; i < source.length; i++) 
             floatArray[i] = source[i];
         return floatArray; 
+    }
+
+    @Override
+    public void createUnsortedArray() {
+        if (checkIfDataTypeFloat(this.typeOfData))
+            unsortedFloatArray = copyFloatArray(floatArray);
+        else
+            unsortedArray = copyArray(array); 
     }
 
     public void setPivot(int  pivot) {
@@ -263,9 +266,9 @@ public class QuickSort extends SortClass {
 
     public void setTypeOfData(String typeOfData) {
         if (checkIfDataTypeFloat(typeOfData))
-            typeOfData = "float";
+            this.typeOfData = "float";
         else
-            typeOfData = "int";
+            this.typeOfData = "int";
     }
 
     private static boolean checkIfDataTypeFloat(String typeOfData) {
