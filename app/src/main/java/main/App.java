@@ -4,6 +4,7 @@ import menu.Menu;
 import sortAlgorithms.*;
 
 public class App {
+    SortClass alogirhtmClass;
     QuickSort quikcSort;
     ShellSort shellSort;
     InsertSort insertSort;
@@ -22,16 +23,16 @@ public class App {
      */
     private void invokeProgram() {
         while (true) {
-        try {
-            menu.printOperations();
-        } catch(Exception e) {
-            System.out.println("Input error! Try again");
-        }
-        if (menu.getAlgorithm() != -1) {  
-            invokeSpecifiedSorting();
-            menu.clearFlags();
-        }
-        menu.clearTermianl();
+            try {
+                menu.printOperations();
+            } catch(Exception e) {
+                System.out.println("Input error! Try again");
+            }
+            if (menu.getAlgorithm() != -1) {  
+                invokeSpecifiedSorting();
+                menu.clearFlags();
+            }
+            menu.clearTermianl();
         }
 
     }
@@ -41,40 +42,47 @@ public class App {
      */
     private void invokeSpecifiedSorting() {
         createAlgorithm();
-        switch (menu.getAlgorithm()) {
-            case 1 -> { 
-                if(!heapSort.checkArrayState())
-                    return; 
-                heapSort.setNumberOfRepetitions(menu.getNumOfRepetitions());
-                heapSort.sorting();
-                heapSort.saveResults();
-                menu.setCurrentAlgorithm(heapSort);
-            }
-            case 2 -> {
-                if(!insertSort.checkArrayState())
-                    return; 
-                insertSort.setNumberOfRepetitions(menu.getNumOfRepetitions());
-                insertSort.sorting();
-                insertSort.saveResults();
-                menu.setCurrentAlgorithm(insertSort);
-            }
-            case 3 -> { 
-                if(!quikcSort.checkArrayState())
-                    return; 
-                quikcSort.setNumberOfRepetitions(menu.getNumOfRepetitions());
-                quikcSort.sorting();
-                quikcSort.saveResults();
-                menu.setCurrentAlgorithm(quikcSort);
-            }
-            case 4 -> {
-                if(!shellSort.checkArrayState())
-                    return; 
-                shellSort.setNumberOfRepetitions(menu.getNumOfRepetitions());
-                shellSort.sorting();
-                shellSort.saveResults();
-                menu.setCurrentAlgorithm(shellSort);
-            }
-        }
+        if(!alogirhtmClass.checkArrayState())
+            return;
+        alogirhtmClass.setNumberOfRepetitions(menu.getNumOfRepetitions());
+        alogirhtmClass.createUnsortedArray();
+        alogirhtmClass.sorting();
+        alogirhtmClass.saveResults();
+        menu.setCurrentAlgorithm(alogirhtmClass); 
+        // switch (menu.getAlgorithm()) {
+        //     case 1 -> { 
+        //         if(!heapSort.checkArrayState())
+        //             return; 
+        //         heapSort.setNumberOfRepetitions(menu.getNumOfRepetitions());
+        //         heapSort.sorting();
+        //         heapSort.saveResults();
+        //         menu.setCurrentAlgorithm(heapSort);
+        //     }
+        //     case 2 -> {
+        //         if(!insertSort.checkArrayState())
+        //             return; 
+        //         insertSort.setNumberOfRepetitions(menu.getNumOfRepetitions());
+        //         insertSort.sorting();
+        //         insertSort.saveResults();
+        //         menu.setCurrentAlgorithm(insertSort);
+        //     }
+        //     case 3 -> { 
+        //         if(!quikcSort.checkArrayState())
+        //             return; 
+        //         quikcSort.setNumberOfRepetitions(menu.getNumOfRepetitions());
+        //         quikcSort.sorting();
+        //         quikcSort.saveResults();
+        //         menu.setCurrentAlgorithm(quikcSort);
+        //     }
+        //     case 4 -> {
+        //         if(!shellSort.checkArrayState())
+        //             return; 
+        //         shellSort.setNumberOfRepetitions(menu.getNumOfRepetitions());
+        //         shellSort.sorting();
+        //         shellSort.saveResults();
+        //         menu.setCurrentAlgorithm(shellSort);
+            // }
+        // }
         
     }
 
@@ -93,10 +101,10 @@ public class App {
      */
     private void createAlgorithmWithFileInput() {
         switch (menu.getAlgorithm()) {
-            case 1 -> heapSort = new HeapSort(menu.getFileName());
-            case 2 -> insertSort = new InsertSort(menu.getFileName());
+            case 1 -> alogirhtmClass = new HeapSort(menu.getFileName());
+            case 2 -> alogirhtmClass = new InsertSort(menu.getFileName());
             case 3 -> createQuickSortWithFileInput(); 
-            case 4 -> shellSort = new ShellSort(menu.getFileName());
+            case 4 -> alogirhtmClass = new ShellSort(menu.getFileName());
             }
     } 
 
@@ -106,9 +114,9 @@ public class App {
     private void createQuickSortWithFileInput() {
         menu.printAdditionalRequest();
         if (menu.getQSDataType() == 1) 
-            quikcSort = new QuickSort(menu.getFileName(), "float", menu.getPivot());
+            alogirhtmClass = new QuickSort(menu.getFileName(), "float", menu.getPivot());
         else
-            quikcSort = new QuickSort(menu.getFileName(), menu.getPivot());
+            alogirhtmClass = new QuickSort(menu.getFileName(), menu.getPivot());
     }
 
     /**
@@ -116,10 +124,10 @@ public class App {
      */
     private void createAlgorithmWithGeneratedInput() {
         switch (menu.getAlgorithm()) {
-            case 1 -> heapSort = new HeapSort(menu.getSize());
-            case 2 -> insertSort = new InsertSort(menu.getSize());
+            case 1 -> alogirhtmClass = new HeapSort(menu.getSize());
+            case 2 -> alogirhtmClass = new InsertSort(menu.getSize());
             case 3 -> createQuickSortWithGeneratedInput(); 
-            case 4 -> shellSort = new ShellSort(menu.getSize());
+            case 4 -> alogirhtmClass = new ShellSort(menu.getSize());
         }
     }
 
@@ -129,9 +137,9 @@ public class App {
     private void createQuickSortWithGeneratedInput() {
         menu.printAdditionalRequest();
         if (menu.getQSDataType() == 1) 
-            quikcSort = new QuickSort(menu.getSize(), "float", menu.getPivot());
+            alogirhtmClass = new QuickSort(menu.getSize(), "float", menu.getPivot());
         else
-            quikcSort = new QuickSort(menu.getSize(), menu.getPivot());
+            alogirhtmClass = new QuickSort(menu.getSize(), menu.getPivot());
     }
 
     /**

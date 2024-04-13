@@ -3,3 +3,14 @@ Avrage time of sroting: 2 ms for 1number of repetitions
 Avrage time of sroting: 2 ms for 1 number of repetitions
 Avrage time of sroting: 3 ms for 1 number of repetitions
 Avrage time of sroting: 9 ms for 1000 number of repetitions
+Avrage time of sroting: 1 ms for 1000 number of repetitions for class sortAlgorithms.HeapSort
+Avrage time of sroting: 1 ms for 1000 number of repetitions for class sortAlgorithms.InsertSort
+Avrage time of sroting: 0 ms for 1 number of repetitions for class sortAlgorithms.HeapSort
+Avrage time of sroting: 4 ms for 1 number of repetitions for class sortAlgorithms.InsertSort
+Avrage time of sroting: 0 ms for 1 number of repetitions for class sortAlgorithms.QuickSort
+Avrage time of sroting: 0 ms for 1 number of repetitions for class sortAlgorithms.QuickSort
+Avrage time of sroting: 1 ms for 10000 number of repetitions for class sortAlgorithms.QuickSort
+Avrage time of sroting: 1 ms for 10000 number of repetitions for class sortAlgorithms.QuickSort
+Avrage time of sroting: 0 ms for 10 number of repetitions for class sortAlgorithms.QuickSort
+Avrage time of sroting: 0 ms for 10 number of repetitions for Shell Alogorithm of class sortAlgorithms.ShellSort
+Avrage time of sroting: 0 ms for 10 number of repetitions for Hibard Alogorithm of class sortAlgorithms.ShellSort

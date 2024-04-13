@@ -6,3 +6,6 @@ build
 
 # Ignore bin direcotyr
 app/bin
+
+# Ignore my results of my tests
+*.txt

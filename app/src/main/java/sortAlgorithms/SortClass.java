@@ -16,7 +16,6 @@ public abstract class SortClass {
     protected SortClass(String fileName) {
         setFileName(fileName);
         readDataFromFile();
-        unsortedArray = copyArray(array);
     }
 
     /**
@@ -27,10 +26,9 @@ public abstract class SortClass {
      */
     protected SortClass(String filename, boolean ifReadData) {
         setFileName(filename);
-        if (ifReadData) { 
+        if (ifReadData)  
             readDataFromFile();
-            unsortedArray = copyArray(array);
-        }
+        
     }
 
     /**
@@ -41,7 +39,6 @@ public abstract class SortClass {
         setSize(size);
         array = createArray();
         generateDataForArray();
-        unsortedArray = copyArray(array);
     }
 
     /**
@@ -55,7 +52,6 @@ public abstract class SortClass {
         if (ifReadData) {
             array = createArray();
             generateDataForArray();
-            unsortedArray = copyArray(array);
         }
     }
 
@@ -149,19 +145,21 @@ public abstract class SortClass {
      */
     public void sorting() {
         for (int i = 0; i < numberOfRepetitions; i++) {
-            if (size < 2000 && numberOfRepetitions > 10) 
+            if (size < 2000 && numberOfRepetitions < 10) 
                 System.out.println("Array before sorting: " + printArray(array));
             long startTime = System.currentTimeMillis(); 
             sortAlgorithm();
             long endTime = System.currentTimeMillis(); 
-            if (size < 2000 && numberOfRepetitions > 10)
+            if (size < 2000 && numberOfRepetitions < 10)
                 System.out.println("Array after sorting: " +  printArray(array));
             timeResult += (endTime- startTime); 
-            array = copyArray(unsortedArray);
+            if(array != null)
+                array = copyArray(unsortedArray);
         }
         timeResult = Math.ceilDiv(timeResult, numberOfRepetitions);
-        System.out.println("Avrage time of sroting: " + timeResult + " ms for " + numberOfRepetitions + " number of repetitions");
+        System.out.println("Average time of sroting: " + timeResult + " ms for " + numberOfRepetitions + " number of repetitions");
     }
+
 
     /**
      *  Method which returns a string with array content which is easy to read. 
@@ -228,6 +226,10 @@ public abstract class SortClass {
             i++; 
         }
         return array;
+    }
+
+    public void createUnsortedArray() {
+        unsortedArray = copyArray(array); 
     }
 
     /**
