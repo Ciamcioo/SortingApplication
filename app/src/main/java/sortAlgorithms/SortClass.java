@@ -7,7 +7,7 @@ public abstract class SortClass {
     protected int size = 0, numberOfRepetitions = 1;
     protected int[] array = null, unsortedArray = null; 
     protected String inputDataFailName = "";
-    protected long timeResult = 0;
+    protected long timeResult = 0; 
 
     /**
      * Constructor which as a argument takes fileName from user, calls function to set variable of the object and read data from the file 
@@ -149,10 +149,12 @@ public abstract class SortClass {
                 System.out.println("Array before sorting: " + printArray(array));
             long startTime = System.currentTimeMillis(); 
             sortAlgorithm();
-            long endTime = System.currentTimeMillis(); 
+            long endTime = System.currentTimeMillis();  
             if (size < 2000 && numberOfRepetitions < 10)
                 System.out.println("Array after sorting: " +  printArray(array));
             timeResult += (endTime- startTime); 
+            if (new Random().nextInt(2000) < 6)
+                System.out.println(new StringBuilder("Result of sorting in line ").append(i).append(" . Result: ").append(checkSortingProccess()));
             if(array != null)
                 array = copyArray(unsortedArray);
         }
@@ -226,6 +228,13 @@ public abstract class SortClass {
             i++; 
         }
         return array;
+    }
+
+    protected boolean checkSortingProccess() {
+        for (int i = 0; i < array.length - 1; i++)
+            if (array[i] > array[i+1] )
+                return false;
+        return false;
     }
 
     public void createUnsortedArray() {

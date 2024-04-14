@@ -5,10 +5,6 @@ import sortAlgorithms.*;
 
 public class App {
     SortClass alogirhtmClass;
-    QuickSort quikcSort;
-    ShellSort shellSort;
-    InsertSort insertSort;
-    HeapSort heapSort;
     Menu menu = new Menu();
 
     public static void main(String[] args) {

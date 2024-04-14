@@ -260,6 +260,21 @@ public class QuickSort extends SortClass {
             unsortedArray = copyArray(array); 
     }
 
+    protected boolean checkSortingProccess() {
+        if (checkIfDataTypeFloat(this.typeOfData)) {
+            for (int i = 0; i < floatArray.length-1; i++)
+                if (floatArray[i] > floatArray[i+1])
+                    return false;
+            return true;
+        }
+        else {
+            for (int i = 0; i < floatArray.length-1; i++)
+                if (array[i] > array[i+1])
+                    return false;
+            return true;
+        }
+    }
+
     public void setPivot(int  pivot) {
         this.pivot = pivot;
     }
