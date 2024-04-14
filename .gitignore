@@ -8,4 +8,4 @@ build
 app/bin
 
 # Ignore my results of my tests
-*.txt
+app/src/main/resources/results.txt
