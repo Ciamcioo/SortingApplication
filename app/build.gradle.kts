@@ -9,11 +9,17 @@
 plugins {
     // Apply the application plugin to add support for building a CLI application in Java.
     application
+    // Plugin to generate exe
 }
-
+val mainClassName = "main.App"
 repositories {
     // Use Maven Central for resolving dependencies.
     mavenCentral()
+}
+tasks.jar {
+    manifest {
+        attributes["Main-Class"] = mainClassName
+    }
 }
 
 dependencies {
@@ -22,6 +28,7 @@ dependencies {
 
     // This dependency is used by the application.
     implementation("com.google.guava:guava:31.1-jre")
+
 }
 
 application {

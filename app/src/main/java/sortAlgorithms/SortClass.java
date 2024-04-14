@@ -153,8 +153,8 @@ public abstract class SortClass {
             if (size < 2000 && numberOfRepetitions < 10)
                 System.out.println("Array after sorting: " +  printArray(array));
             timeResult += (endTime- startTime); 
-            if (new Random().nextInt(2000) < 6)
-                System.out.println(new StringBuilder("Result of sorting in line ").append(i).append(" . Result: ").append(checkSortingProccess()));
+            if (size > 100 && new Random().nextInt(2000) < 6)
+                System.out.println(new StringBuilder("Result of sorting in repetition: ").append(i).append(" . Result: ").append(checkSortingProccess()));
             if(array != null)
                 array = copyArray(unsortedArray);
         }
@@ -234,7 +234,7 @@ public abstract class SortClass {
         for (int i = 0; i < array.length - 1; i++)
             if (array[i] > array[i+1] )
                 return false;
-        return false;
+        return true;
     }
 
     public void createUnsortedArray() {
