@@ -6,10 +6,10 @@ import sortAlgorithms.SortClass;
 
 public class Menu {
     private static BufferedReader reader;
-    private int algorithm = -1, typeOfSource = -1, operation = -1, size = -1, dataSource = -1, qsDataType = -1, pivotPlacmentQS = -1, numOfRepetition = 1  ;
+    private int algorithm = -1, typeOfSource = -1, operation = -1, size = 0, dataSource = -1, qsDataType = -1, pivotPlacmentQS = -1, numOfRepetition = 1  ;
     private String fileName = null;
     private boolean error = false;
-    private SortClass currentAlgorithm;
+    private SortClass currentAlgorithm = null;
 
     /**
      *  Prints main menu of application, as an input takes number relating to next operations. Input will be read unless it is not correct. After that error variable is cleared and operationControllers is invoked.
@@ -35,7 +35,7 @@ public class Menu {
        do {
             clearsError();
             System.out.print("> ");
-            operation =  Integer.parseInt(readData());
+            operation = handleInput(readData(), -1, "Provided input must be a number! Try again!");
             checkConditions(operation, 1, 10, "Undefined operation");
        } while(error);
        operationController();
@@ -52,12 +52,11 @@ public class Menu {
             case 4 -> enterArraySize(); 
             case 5 -> System.out.println("Current size of array: " + size);
             case 6 -> System.out.println(currentAlgorithm.printArray(currentAlgorithm.getUnsortedArray())); 
-            case 7 -> System.out.println(currentAlgorithm.printArray(currentAlgorithm.getArray()));
+            case 7 -> System.out.println(currentAlgorithm.printArray(currentAlgorithm.getUnsortedArray())); 
             case 8 -> System.out.println("Current number of repetitions: " + numOfRepetition); 
             case 9 -> enterNumberOfRepetitions(); 
             case 10 -> App.exitApp(); 
         }
-
     }
 
     /** 
@@ -73,8 +72,8 @@ public class Menu {
         do {
             clearsError();
             System.out.print("> " );
-            algorithm = Integer.parseInt(readData());
-            checkConditions(algorithm, 1, 5, "Undefinded sorting algorithm");
+            algorithm = handleInput(readData(), -1, "Algorithm must relate to a number! Try again!");
+            checkConditions(algorithm, 1, 4, "Undefinded sorting algorithm");
         }while(error);
         printSourcesOfData();
     }
@@ -83,16 +82,14 @@ public class Menu {
      * Prints availabe options for array input and take an input from the user. Metod will read data unless all the condition won't be met. Clears error flags and invoke sourceController.
      */
     private void printSourcesOfData() {
-            System.out.println("Choose source of data for array");
-            System.out.println("1. File");
-            System.out.println("2. Generated");
-            System.out.println("Enter number relevante to source of data");
-        do {
-            clearsError();
-            System.out.print("> ");
-            typeOfSource = Integer.parseInt(readData());
-            checkConditions(typeOfSource, 1, 3, "Undefine source");
-        }while(error);
+        System.out.println("Choose source of data for array");
+        System.out.println("1. File");
+        System.out.println("2. Generated");
+        System.out.println("Enter number relevante to source of data");
+        clearsError();
+        System.out.print("> ");
+        typeOfSource = handleInput(readData(), 2, "Provided input is not a number! Array data will be generated.");
+        checkConditions(typeOfSource, 1, 3, "Undefine source of data");
         sourceController();
     }
 
@@ -104,12 +101,10 @@ public class Menu {
         System.out.println("1. Enter new value");
         System.out.println("2. Use saved value");
         System.out.println("Enter number relevatn to variable for source");
-        do {
-            clearsError();
-            System.out.print("> ");
-            dataSource = Integer.parseInt(readData());
-            checkConditions(dataSource, 1, 2, "Undefine option");
-        }while(error);
+        clearsError();
+        System.out.print("> ");
+        dataSource = handleInput(readData(), 2,"Provided input is not a number. Saved value was used!");
+        checkConditions(dataSource, 1, 2, "Undefine source of data");
         if (dataSource == 1)
             optionVariableSource();
     }
@@ -145,12 +140,10 @@ public class Menu {
         System.out.println("1. Float");
         System.out.println("2. Int");
         System.out.println("Enter number relevatn to data type");
-        do {
-            clearsError();
-            System.out.print("> ");
-            qsDataType = Integer.parseInt(readData()); 
-            checkConditions(qsDataType, 1, 2, "Undefined data type");
-        } while(error);
+        clearsError();
+        System.out.print("> ");
+        qsDataType = handleInput(readData(), 2, "Provided input is not a number. Array will be generate for Integer");
+        checkConditions(qsDataType, 1, 2, "Undefined data type of quick sort Alogorithm");
     }
 
     /**
@@ -163,12 +156,10 @@ public class Menu {
         System.out.println("2. Center");
         System.out.println("3. Right");
         System.out.println("Enter number relevatn to position of pivot");
-        do {
-            clearsError();
-            System.out.print("> ");
-            pivotPlacmentQS = Integer.parseInt(readData()); 
-            checkConditions(qsDataType, 1, 3, "Undefinded pivot placment");
-        } while(error);
+        clearsError();
+        System.out.print("> ");
+        pivotPlacmentQS = handleInput(readData(), 1, "Provided input is not a number. Pivot will be set to the left side");
+        checkConditions(pivotPlacmentQS, 1, 3, "Undefinded pivot placment");
     }
 
     /**
@@ -182,7 +173,7 @@ public class Menu {
                 else printStateOfData(); 
             }
             case 2 -> {
-                if (size < 0)  enterArraySize();
+                if (size <= 0)  enterArraySize();
                 else printStateOfData();
             }
         }
@@ -205,7 +196,7 @@ public class Menu {
     private void enterArraySize() {
         System.out.println("Enter a size of array");
         System.out.print("> ");
-        size = Integer.parseInt(readData());
+        size = handleInput(readData(), size, "Provided input must be a number! Size will remain the same as it was before");
     }
 
     /**
@@ -214,9 +205,8 @@ public class Menu {
     private void enterNumberOfRepetitions(){
         System.out.println("Enter a number of repetitions");
         System.out.print("> ");
-        setNumOfRepetions(Integer.parseInt(readData())); 
+        setNumOfRepetions(handleInput(readData(), numOfRepetition, "Provided input must be a number! Number of repetition will remane the same"));
     }
-
     
     /**
      * Method reads data from standard input. In case of errors displays according message and returns deafult value
@@ -325,5 +315,16 @@ public class Menu {
             numOfRepetition = numberOfRepetitions;
         else
             numOfRepetition = 1;
+    }
+
+
+    private int handleInput(String source, int defaultValue, String errorMsg) {
+        try {
+            return Integer.parseInt(source);
+        } catch(NumberFormatException e) {
+            System.out.println(errorMsg);
+            error = true;
+            return defaultValue;
+        }
     }
 }

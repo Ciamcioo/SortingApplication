@@ -26,7 +26,7 @@ public class App {
             try {
                 menu.printOperations();
             } catch(Exception e) {
-                System.out.println("Input error! Try again");
+                System.out.println("Something went wrong during the proces");
             }
             if (menu.getAlgorithm() != -1) {  
                 invokeSpecifiedSorting();
@@ -42,6 +42,8 @@ public class App {
      */
     private void invokeSpecifiedSorting() {
         createAlgorithm();
+        if (alogirhtmClass == null)
+            return; 
         if(!alogirhtmClass.checkArrayState())
             return;
         alogirhtmClass.setNumberOfRepetitions(menu.getNumOfRepetitions());
@@ -49,51 +51,17 @@ public class App {
         alogirhtmClass.sorting();
         alogirhtmClass.saveResults();
         menu.setCurrentAlgorithm(alogirhtmClass); 
-        // switch (menu.getAlgorithm()) {
-        //     case 1 -> { 
-        //         if(!heapSort.checkArrayState())
-        //             return; 
-        //         heapSort.setNumberOfRepetitions(menu.getNumOfRepetitions());
-        //         heapSort.sorting();
-        //         heapSort.saveResults();
-        //         menu.setCurrentAlgorithm(heapSort);
-        //     }
-        //     case 2 -> {
-        //         if(!insertSort.checkArrayState())
-        //             return; 
-        //         insertSort.setNumberOfRepetitions(menu.getNumOfRepetitions());
-        //         insertSort.sorting();
-        //         insertSort.saveResults();
-        //         menu.setCurrentAlgorithm(insertSort);
-        //     }
-        //     case 3 -> { 
-        //         if(!quikcSort.checkArrayState())
-        //             return; 
-        //         quikcSort.setNumberOfRepetitions(menu.getNumOfRepetitions());
-        //         quikcSort.sorting();
-        //         quikcSort.saveResults();
-        //         menu.setCurrentAlgorithm(quikcSort);
-        //     }
-        //     case 4 -> {
-        //         if(!shellSort.checkArrayState())
-        //             return; 
-        //         shellSort.setNumberOfRepetitions(menu.getNumOfRepetitions());
-        //         shellSort.sorting();
-        //         shellSort.saveResults();
-        //         menu.setCurrentAlgorithm(shellSort);
-            // }
-        // }
-        
     }
 
     /**
      * Invokes method to create algorithm based on source type specified in menu object
      */
     private void createAlgorithm() {
-        if (menu.getSourceTyep() == 1) 
-            createAlgorithmWithFileInput();
-        else 
-            createAlgorithmWithGeneratedInput();
+        switch (menu.getSourceTyep()) {
+            case 1 -> createAlgorithmWithFileInput();
+            case 2 -> createAlgorithmWithGeneratedInput();
+            default -> System.out.println("Source type wasn't specified"); 
+        }
     } 
 
     /**
