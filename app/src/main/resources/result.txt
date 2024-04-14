@@ -37,3 +37,4 @@ Avrage time of sroting: 0 ms for 1 number of repetitions for class sortAlgorithm
 Avrage time of sroting: 11 ms for 10000 number of repetitions for class sortAlgorithms.QuickSort
 Avrage time of sroting: 0 ms for 1 number of repetitions for class sortAlgorithms.QuickSort
 Avrage time of sroting: 1 ms for 10000 number of repetitions for class sortAlgorithms.QuickSort
+Avrage time of sroting: 1 ms for 1 number of repetitions for class sortAlgorithms.HeapSort
