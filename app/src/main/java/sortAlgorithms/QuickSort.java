@@ -8,8 +8,8 @@ public class QuickSort extends SortClass {
 
     private String typeOfData;
     private int pivot;
-    private float[] floatArray;
-    private float[] unsortedFloatArray;
+    private float[] floatArray,  unsortedFloatArray;
+    private boolean stackOverFlow = false;
 
     public QuickSort(int size, int pivot) {
         super(size);
@@ -171,14 +171,23 @@ public class QuickSort extends SortClass {
      * @param right - last index of array
      */
     private void quikcSorting(int left, int right) {
-        int pod;
-        if (left >= right)  return;
-        if (typeOfData.equals("float")) 
-            pod = partitionOfFloatArray(left, right);
-        else  
-            pod = partitionOfIntArray(left, right);
-        quikcSorting(left, pod);
-        quikcSorting(pod+1, right);
+        try {
+            int pod;
+            if (left >= right)  return;
+            if (checkIfDataTypeFloat(this.typeOfData))
+                pod = partitionOfFloatArray(left, right);
+            else  
+                pod = partitionOfIntArray(left, right);
+            quikcSorting(left, pod);
+            quikcSorting(pod+1, right);
+            return;
+        } catch (StackOverflowError e) {
+            if (!stackOverFlow) {
+                stackOverFlow = !stackOverFlow;
+                System.out.println("Unfortuanately stac couldn't contain more call of methods! Sorthing eneded with a failure!");
+            }
+            return;
+        }
     }
 
     /**

@@ -3,6 +3,8 @@ package sortAlgorithms;
 import java.io.*;
 import java.util.Random;
 
+import main.App;
+
 public abstract class SortClass {
     protected int size = 0, numberOfRepetitions = 1;
     protected int[] array = null, unsortedArray = null; 
@@ -76,6 +78,7 @@ public abstract class SortClass {
         } 
         finally{
             closeStream(reader);
+            App.exitApp();
         }
     }
 
