@@ -273,14 +273,14 @@ public class QuickSort extends SortClass {
         if (checkIfDataTypeFloat(this.typeOfData)) {
             for (int i = 0; i < floatArray.length-1; i++)
                 if (floatArray[i] > floatArray[i+1])
-                    return false;
-            return true;
+                    return true;
+            return false;
         }
         else {
             for (int i = 0; i < array.length-1; i++)
                 if (array[i] > array[i+1])
-                    return false;
-            return true;
+                    return true;
+            return false;
         }
     }
 
