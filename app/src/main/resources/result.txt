@@ -78,3 +78,35 @@ Avrage time of sroting: 1 ms for 1000 number of repetitions for class sortAlgori
 Avrage time of sroting: 1 ms for 1000 number of repetitions for Shell Alogorithm of class sortAlgorithms.ShellSort
 Avrage time of sroting: 0 ms for 1000 number of repetitions for Hibard Alogorithm of class sortAlgorithms.ShellSort
 Avrage time of sroting: 7 ms for 1000 number of repetitions for class sortAlgorithms.HeapSort
+Avrage time of sroting: 2688 ms for 1000 number of repetitions for class sortAlgorithms.InsertSort
+Avrage time of sroting: 336 ms for 1 number of repetitions for Shell Alogorithm of class sortAlgorithms.ShellSort
+Avrage time of sroting: 0 ms for 1 number of repetitions for Hibard Alogorithm of class sortAlgorithms.ShellSort
+Avrage time of sroting: 329 ms for 1 number of repetitions for Shell Alogorithm of class sortAlgorithms.ShellSort
+Avrage time of sroting: 0 ms for 1 number of repetitions for Hibard Alogorithm of class sortAlgorithms.ShellSort
+Avrage time of sroting: 0 ms for 1000 number of repetitions for Shell Alogorithm of class sortAlgorithms.ShellSort
+Avrage time of sroting: 0 ms for 1000 number of repetitions for Hibard Alogorithm of class sortAlgorithms.ShellSort
+Avrage time of sroting: 37 ms for 1 number of repetitions for Shell Alogorithm of class sortAlgorithms.ShellSort
+Avrage time of sroting: 0 ms for 1 number of repetitions for Hibard Alogorithm of class sortAlgorithms.ShellSort
+Avrage time of sroting: 16 ms for 1 number of repetitions for class sortAlgorithms.QuickSort
+Avrage time of sroting: 11 ms for 1 number of repetitions for class sortAlgorithms.QuickSort
+Avrage time of sroting: 101 ms for 1 number of repetitions for class sortAlgorithms.QuickSort
+Avrage time of sroting: 104 ms for 1 number of repetitions for class sortAlgorithms.QuickSort
+Avrage time of sroting: 105 ms for 1 number of repetitions for class sortAlgorithms.QuickSort
+Avrage time of sroting: 87 ms for 1 number of repetitions for class sortAlgorithms.QuickSort
+Avrage time of sroting: 35120 ms for 1 number of repetitions for class sortAlgorithms.QuickSort
+Avrage time of sroting: 40 ms for 1 number of repetitions for class sortAlgorithms.QuickSort
+Avrage time of sroting: 21 ms for 1 number of repetitions for class sortAlgorithms.QuickSort
+Avrage time of sroting: 32 ms for 1 number of repetitions for class sortAlgorithms.QuickSort
+Avrage time of sroting: 20 ms for 1 number of repetitions for class sortAlgorithms.QuickSort
+Avrage time of sroting: 21 ms for 1 number of repetitions for class sortAlgorithms.QuickSort
+Avrage time of sroting: 22 ms for 1 number of repetitions for class sortAlgorithms.QuickSort
+Avrage time of sroting: 22 ms for 1 number of repetitions for class sortAlgorithms.QuickSort
+Avrage time of sroting: 206 ms for 1 number of repetitions for class sortAlgorithms.QuickSort
+Avrage time of sroting: 205 ms for 1 number of repetitions for class sortAlgorithms.QuickSort
+Avrage time of sroting: 195 ms for 1 number of repetitions for class sortAlgorithms.QuickSort
+Avrage time of sroting: 544 ms for 1 number of repetitions for class sortAlgorithms.QuickSort
+Avrage time of sroting: 0 ms for 1 number of repetitions for class sortAlgorithms.InsertSort
+Avrage time of sroting: 442 ms for 1 number of repetitions for class sortAlgorithms.QuickSort
+Avrage time of sroting: 374 ms for 1 number of repetitions for class sortAlgorithms.QuickSort
+Avrage time of sroting: 550 ms for 1 number of repetitions for class sortAlgorithms.QuickSort
+Avrage time of sroting: 1909 ms for 1 number of repetitions for class sortAlgorithms.QuickSort
