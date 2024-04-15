@@ -156,7 +156,7 @@ public abstract class SortClass {
             if (size < 2000 && numberOfRepetitions < 10)
                 System.out.println("Array after sorting: " +  printArray(array));
             timeResult += (endTime- startTime); 
-            if (size > 100 && new Random().nextInt(2000) < 6)
+            if (size > 100 || new Random().nextInt(1000)  == 1)
                 System.out.println(new StringBuilder("Result of sorting in repetition: ").append(i).append(" . Result: ").append(checkSortingProccess()));
             if(array != null)
                 array = copyArray(unsortedArray);
