@@ -3,8 +3,6 @@ package sortAlgorithms;
 import java.io.*;
 import java.util.Random;
 
-import main.App;
-
 public abstract class SortClass {
     protected int size = 0, numberOfRepetitions = 1;
     protected int[] array = null, unsortedArray = null; 
@@ -78,7 +76,6 @@ public abstract class SortClass {
         } 
         finally{
             closeStream(reader);
-            App.exitApp();
         }
     }
 
@@ -156,8 +153,8 @@ public abstract class SortClass {
             if (size < 2000 && numberOfRepetitions < 10)
                 System.out.println("Array after sorting: " +  printArray(array));
             timeResult += (endTime- startTime); 
-            if (size > 100 || new Random().nextInt(1000)  == 1)
-                System.out.println(new StringBuilder("Result of sorting in repetition: ").append(i).append(" . Result: ").append(checkSortingProccess()));
+            if (checkSortingProccess())
+                System.out.println("Inncorect sorting in repetition " + i);
             if(array != null)
                 array = copyArray(unsortedArray);
         }
@@ -194,7 +191,8 @@ public abstract class SortClass {
     public void saveResults(){
         BufferedWriter writer = generaBufferedWriter() ; 
         try {
-            writer.write("Avrage time of sroting: " + timeResult + " ms for " + numberOfRepetitions + " number of repetitions for " + this.getClass());
+            StringBuilder msg = new StringBuilder("Avrage time of sroting: ").append(timeResult).append(" for ").append(this.getClass()).append("Array size: ").append(this.size).append(", number of repetitions: ").append(this.numberOfRepetitions).append(" , source: ").append(this.inputDataFailName != null ? inputDataFailName : "generated");
+            writer.write(msg.toString());
             writer.newLine();
         } catch (Exception e) {
             System.out.println("Line cound't be saved to file");
@@ -236,8 +234,8 @@ public abstract class SortClass {
     protected boolean checkSortingProccess() {
         for (int i = 0; i < array.length - 1; i++)
             if (array[i] > array[i+1] )
-                return false;
-        return true;
+                return true;
+        return false;
     }
 
     public void createUnsortedArray() {
