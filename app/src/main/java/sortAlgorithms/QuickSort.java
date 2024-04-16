@@ -7,7 +7,7 @@ import java.util.Random;
 
 public class QuickSort extends SortClass {
 
-    private String typeOfData, pivotPlacmentString;
+    private String typeOfData; 
     private int pivot;
     private float[] floatArray,  unsortedFloatArray;
     private boolean stackOverFlow = false;
