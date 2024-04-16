@@ -1,12 +1,13 @@
 package sortAlgorithms;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.util.Random;
 
 public class QuickSort extends SortClass {
 
-    private String typeOfData;
+    private String typeOfData, pivotPlacmentString;
     private int pivot;
     private float[] floatArray,  unsortedFloatArray;
     private boolean stackOverFlow = false;
@@ -297,6 +298,19 @@ public class QuickSort extends SortClass {
 
     private static boolean checkIfDataTypeFloat(String typeOfData) {
         return typeOfData.equals("float");
+    }
+    
+    public void saveResults() {
+        BufferedWriter writer = generaBufferedWriter() ; 
+        try {
+            StringBuilder msg = new StringBuilder("Avrage time of sroting: ").append(timeResult).append(" for ").append(this.getClass()).append("Array size: ").append(this.size).append(", number of repetitions: ").append(this.numberOfRepetitions).append(" , source: ").append(this.inputDataFailName != null ? inputDataFailName : "generated").append("tyep of data: ").append(this.typeOfData);
+            writer.write(msg.toString());
+            writer.newLine();
+        } catch (Exception e) {
+            System.out.println("Line cound't be saved to file");
+        } finally {
+            closeStream(writer);
+        }
     }
 }
 
