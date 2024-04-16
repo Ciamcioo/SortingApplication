@@ -303,7 +303,7 @@ public class QuickSort extends SortClass {
     public void saveResults() {
         BufferedWriter writer = generaBufferedWriter() ; 
         try {
-            StringBuilder msg = new StringBuilder("Avrage time of sroting: ").append(timeResult).append(" for ").append(this.getClass()).append("Array size: ").append(this.size).append(", number of repetitions: ").append(this.numberOfRepetitions).append(" , source: ").append(this.inputDataFailName != null ? inputDataFailName : "generated").append("tyep of data: ").append(this.typeOfData);
+            StringBuilder msg = new StringBuilder("Avrage time of sroting: ").append(timeResult).append(" ms for ").append(this.getClass()).append("Array size: ").append(this.size).append(", number of repetitions: ").append(this.numberOfRepetitions).append(" , source: ").append(this.inputDataFailName != null ? inputDataFailName : "generated").append("tyep of data: ").append(this.typeOfData);
             writer.write(msg.toString());
             writer.newLine();
         } catch (Exception e) {

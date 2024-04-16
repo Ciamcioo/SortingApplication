@@ -191,7 +191,7 @@ public abstract class SortClass {
     public void saveResults(){
         BufferedWriter writer = generaBufferedWriter() ; 
         try {
-            StringBuilder msg = new StringBuilder("Avrage time of sroting: ").append(timeResult).append(" for ").append(this.getClass()).append("Array size: ").append(this.size).append(", number of repetitions: ").append(this.numberOfRepetitions).append(" , source: ").append(this.inputDataFailName != "" ? inputDataFailName : "generated");
+            StringBuilder msg = new StringBuilder("Avrage time of sroting: ").append(timeResult).append(" ms for ").append(this.getClass()).append("Array size: ").append(this.size).append(", number of repetitions: ").append(this.numberOfRepetitions).append(" , source: ").append(this.inputDataFailName != "" ? inputDataFailName : "generated");
             writer.write(msg.toString());
             writer.newLine();
         } catch (Exception e) {
