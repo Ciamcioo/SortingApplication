@@ -35,7 +35,7 @@ public class Menu {
        do {
             clearsError();
             System.out.print("> ");
-            operation = handleInput(readData(), -1, "Provided input must be a number! Try again!");
+            operation = parsingInput(readData(), -1, "Provided input must be a number! Try again!");
             checkConditions(operation, 1, 10, "Undefined operation");
        } while(error);
        operationController();
@@ -72,7 +72,7 @@ public class Menu {
         do {
             clearsError();
             System.out.print("> " );
-            algorithm = handleInput(readData(), -1, "Algorithm must relate to a number! Try again!");
+            algorithm = parsingInput(readData(), -1, "Algorithm must relate to a number! Try again!");
             checkConditions(algorithm, 1, 4, "Undefinded sorting algorithm");
         }while(error);
         printSourcesOfData();
@@ -88,7 +88,7 @@ public class Menu {
         System.out.println("Enter number relevante to source of data");
         clearsError();
         System.out.print("> ");
-        typeOfSource = handleInput(readData(), 2, "Provided input is not a number! Array data will be generated.");
+        typeOfSource = parsingInput(readData(), 2, "Provided input is not a number! Array data will be generated.");
         checkConditions(typeOfSource, 1, 3, "Undefine source of data");
         sourceController();
     }
@@ -103,7 +103,7 @@ public class Menu {
         System.out.println("Enter number relevatn to variable for source");
         clearsError();
         System.out.print("> ");
-        dataSource = handleInput(readData(), 2,"Provided input is not a number. Saved value was used!");
+        dataSource = parsingInput(readData(), 2,"Provided input is not a number. Saved value was used!");
         checkConditions(dataSource, 1, 2, "Undefine source of data");
         if (dataSource == 1)
             optionVariableSource();
@@ -142,7 +142,7 @@ public class Menu {
         System.out.println("Enter number relevatn to data type");
         clearsError();
         System.out.print("> ");
-        qsDataType = handleInput(readData(), 2, "Provided input is not a number. Array will be generate for Integer");
+        qsDataType = parsingInput(readData(), 2, "Provided input is not a number. Array will be generate for Integer");
         checkConditions(qsDataType, 1, 2, "Undefined data type of quick sort Alogorithm");
     }
 
@@ -158,7 +158,7 @@ public class Menu {
         System.out.println("Enter number relevatn to position of pivot");
         clearsError();
         System.out.print("> ");
-        pivotPlacmentQS = handleInput(readData(), 1, "Provided input is not a number. Pivot will be set to the left side");
+        pivotPlacmentQS = parsingInput(readData(), 1, "Provided input is not a number. Pivot will be set to the left side");
         checkConditions(pivotPlacmentQS, 1, 3, "Undefinded pivot placment");
     }
 
@@ -196,7 +196,7 @@ public class Menu {
     private void enterArraySize() {
         System.out.println("Enter a size of array");
         System.out.print("> ");
-        size = handleInput(readData(), size, "Provided input must be a number! Size will remain the same as it was before");
+        size = parsingInput(readData(), size, "Provided input must be a number! Size will remain the same as it was before");
     }
 
     /**
@@ -205,7 +205,25 @@ public class Menu {
     private void enterNumberOfRepetitions(){
         System.out.println("Enter a number of repetitions");
         System.out.print("> ");
-        setNumOfRepetions(handleInput(readData(), numOfRepetition, "Provided input must be a number! Number of repetition will remane the same"));
+        setNumOfRepetions(parsingInput(readData(), numOfRepetition, "Provided input must be a number! Number of repetition will remane the same"));
+    }
+
+    /**
+     * Method which takes data from default input stream and tries to pares it to integer. If the operation finishes with success parsed value is returned in other case the error message 
+     * is displaied on the screen and default value is set.
+     * @param source - input from the stream
+     * @param defaultValue - value which will be retured in case of parsing failure 
+     * @param errorMsg - message informing the user that parsing ended with an error
+     * @return - parsed or default value passed to method
+     */
+    private int parsingInput(String source, int defaultValue, String errorMsg) {
+        try {
+            return Integer.parseInt(source);
+        } catch(NumberFormatException e) {
+            System.out.println(errorMsg);
+            error = true;
+            return defaultValue;
+        }
     }
     
     /**
@@ -268,6 +286,7 @@ public class Menu {
         operation = -1;
     }
 
+
     /**
      *  Method clears terminal after pressing any key and flushed the buffor. 
      */
@@ -315,16 +334,5 @@ public class Menu {
             numOfRepetition = numberOfRepetitions;
         else
             numOfRepetition = 1;
-    }
-
-
-    private int handleInput(String source, int defaultValue, String errorMsg) {
-        try {
-            return Integer.parseInt(source);
-        } catch(NumberFormatException e) {
-            System.out.println(errorMsg);
-            error = true;
-            return defaultValue;
-        }
     }
 }

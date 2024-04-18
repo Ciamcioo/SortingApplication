@@ -14,7 +14,7 @@ public class App {
 
 
     /**
-     * Keeps the program working until the exit (6) operation is not provided. It prints the main menu with basic operations and checks for algorithm choice, whenever algorithm is choosen
+     * Keeps the program working until the exit (10) operation is not provided. It prints the main menu with basic operations and checks for algorithm choice, whenever algorithm is choosen
      * invokes the sorting algorithm. When the sorting algorithm finished clears the flag and termianl. 
      */
     private void invokeProgram() {
@@ -30,7 +30,6 @@ public class App {
             }
             menu.clearTermianl();
         }
-
     }
 
     /**
@@ -44,7 +43,7 @@ public class App {
             return;
         alogirhtmClass.setNumberOfRepetitions(menu.getNumOfRepetitions());
         alogirhtmClass.createUnsortedArray();
-        alogirhtmClass.sorting();
+        alogirhtmClass.sortingControler();
         alogirhtmClass.saveResults();
         menu.setCurrentAlgorithm(alogirhtmClass); 
     }
