@@ -6,8 +6,9 @@ import java.util.Random;
 public abstract class SortClass {
     protected int size = 0, numberOfRepetitions = 1;
     protected int[] array = null, unsortedArray = null; 
-    protected String inputDataFailName = "";
+    protected String inputDataFileName;
     protected long timeResult = 0; 
+    protected boolean fatalError = false;
 
     /**
      * Constructor which as a argument takes fileName from user, calls function to set variable of the object and read data from the file 
@@ -28,7 +29,6 @@ public abstract class SortClass {
         setFileName(filename);
         if (ifReadData)  
             readDataFromFile();
-        
     }
 
     /**
@@ -37,8 +37,7 @@ public abstract class SortClass {
     */
     protected SortClass(int size) {
         setSize(size);
-        array = createArray();
-        generateDataForArray();
+        array = generateDataForArray(this.size);
     }
 
     /**
@@ -49,11 +48,11 @@ public abstract class SortClass {
     */
     protected SortClass(int size, boolean ifReadData) {
         setSize(size);
-        if (ifReadData) {
-            array = createArray();
-            generateDataForArray();
-        }
+        if (ifReadData) 
+            array = generateDataForArray(this.size);
     }
+    
+    protected abstract void sortAlgorithm();
 
     /**
      * Method is reading one line at the time and inserting that line into array if an array object exists. 
@@ -66,7 +65,7 @@ public abstract class SortClass {
             return;
         try {
             setSize(Integer.parseInt(reader.readLine()));
-            array = createArray();
+            array = new int[this.size];
             for (int i = 0; reader.ready() && i < size; i++) { 
                 array[i] = Integer.parseInt(reader.readLine());
             }
@@ -76,6 +75,18 @@ public abstract class SortClass {
         } 
         finally{
             closeStream(reader);
+        }
+    }
+
+    /**
+     * Method responsible for generating reader for a file. In case of execption returns null.
+     * @return object of reader
+     */
+    protected BufferedReader generatBufferedReader() {
+        try {
+            return new BufferedReader(new FileReader(inputDataFileName));
+        } catch(FileNotFoundException e) {
+            return null;
         }
     }
 
@@ -96,72 +107,91 @@ public abstract class SortClass {
     }
 
     /**
-     * Method responsible for generating reader for a file. In case of execption returns null.
-     * @return object of reader
+     * Method creates and generates random ints for an array. 
+     * @param size - size of created array
+     * @return - created and genearted array
      */
-    protected BufferedReader generatBufferedReader() {
-        try {
-            return new BufferedReader(new FileReader(inputDataFailName));
-        } catch(FileNotFoundException e) {
-            return null;
-        }
-    }
-
-
-    /**
-     *  Method which initializes array variable of a object 
-     * @return created array object
-     */
-    protected int[] createArray() {
-        return new int[size];
-    }
-
-    /**
-     * Method which fills the array with data if the array is not null
-     */
-    protected void generateDataForArray(){
+    protected int[] generateDataForArray(int size){
+        int[] array = new int[size];
         Random rand = new Random();
         if (array != null)
             for (int i = 0; i<size; i++) 
                 array[i] = rand.nextInt();
+        return array;
     }
 
-    /**
-     * Method which enables swaping iteams between two indexes of an array
-     * @param tab - array where swap should be done
-     * @param left - lower index to swap
-     * @param right - higher index to swap
-     */
-    protected void swap( int left, int right) {
-        int tmp = array[left];
-        array[left] = array[right];
-        array[right] = tmp;
-    }
-
-    protected abstract void sortAlgorithm();
 
     /**
-     * Base invoke of sorting. Some desentend class have diffrent implementation of sortAlogrithm().
+     * Mathod is controling the process of array sorting.  It's handles all case senarios for possible sorting. A few  desendence class of SortClass needs to implement their own controller due to boraden class structure. 
      */
-    public void sorting() {
+    public void sortingControler() {
         for (int i = 0; i < numberOfRepetitions; i++) {
-            if (size < 2000 && numberOfRepetitions < 10) 
-                System.out.println("Array before sorting: " + printArray(array));
-            long startTime = System.currentTimeMillis(); 
-            sortAlgorithm();
-            long endTime = System.currentTimeMillis();  
-            if (size < 2000 && numberOfRepetitions < 10)
-                System.out.println("Array after sorting: " +  printArray(array));
-            timeResult += (endTime- startTime); 
-            if (checkSortingProccess())
-                System.out.println("Inncorect sorting in repetition " + i);
-            if(array != null)
-                array = copyArray(unsortedArray);
+            sortingArrayState();
+            timeResult += timeMesurment(); 
+            sortingArrayState();
+            if (fatalError = sortErrorChecker(i))
+                break;
+            dataPreparation();
         }
-        timeResult = Math.ceilDiv(timeResult, numberOfRepetitions);
-        System.out.println("Average time of sroting: " + timeResult + " ms for " + numberOfRepetitions + " number of repetitions");
+
+        if (!fatalError) {
+            timeResult = Math.ceilDiv(timeResult, numberOfRepetitions);
+            System.out.println("Average time of sroting: " + timeResult + " ms for " + numberOfRepetitions + " number of repetitions");
+        }
     }
 
+    /**
+     * Method prints small arrays before and after sorting. Small array is an array which meets the conditions belowe.
+     */
+    protected void sortingArrayState() {
+        if (size < 2000 && numberOfRepetitions < 10) 
+            System.out.println("Sorted array: " + printArray(array));
+    }
+
+    /**
+     * Method reads current time in miliseconds between begining and ending of sorting algorithm. After substruction functions returns the time of sorting
+     * @return - sorting time of algorithm
+     */
+    protected long timeMesurment() {
+        long startTime = System.currentTimeMillis(); 
+        sortAlgorithm();
+        long endTime = System.currentTimeMillis();  
+        return endTime-startTime;
+    } 
+
+    /**
+     *  Method checks the result of sroting 
+     * @param iteration - repetition of sorting 
+     * @return - boolean value which defines if the algorithm was sorted corectly. If method returns true there was an error in sorting. In other case false is returned 
+     */
+    protected boolean sortErrorChecker(int iteration) {
+        if (!errorAlgorithm())
+            System.out.println("Incorect sorting repetition number: " + iteration);
+        return !errorAlgorithm();
+    }
+
+    /**
+     * Method implementing algorithm which iterates over array and checks if eleemnt of index i is smaller than the element of index i+1.
+     * @return - return true if array was sorted correctly and false if there is a mistake.
+     */
+    protected boolean errorAlgorithm() {
+        for (int i = 0; i < array.length - 1; i++)
+            if (array[i] > array[i+1]) 
+                return false;
+        return true;   
+    }
+
+    /**
+     * Method prepares object array variable and unsrotedArray varialbe to containe new random elements in case of generated numbers or copies the unsorted array to array that in next repetition array will contained unsorted values.
+     */
+    protected void dataPreparation() {
+        if (this.inputDataFileName != null) 
+            array = copyArray(unsortedArray);    
+        else if (this.inputDataFileName == null) {
+            array = generateDataForArray(size);
+            unsortedArray = copyArray(array);
+        }
+    }
 
     /**
      *  Method which returns a string with array content which is easy to read. 
@@ -178,6 +208,22 @@ public abstract class SortClass {
     }
 
     /**
+     * Method copies the content of generated or loaded array to second array and returns the array
+     * @return - returns newly created array with copie of content of the first array
+     */
+    protected int[] copyArray(int[] source) {
+        if (!checkArrayState())
+            return null;
+        int[] array = new int[source.length];
+        int i = 0;
+        for (int element : source) {
+            array[i] = element;
+            i++; 
+        }
+        return array;
+    }
+
+    /**
      * Checks if array exists
      * @return - the result of boolean equation which check is array is null
      */
@@ -186,12 +232,24 @@ public abstract class SortClass {
     }
 
     /**
+     * Method which enables swaping iteams between two indexes of an array
+     * @param tab - array where swap should be done
+     * @param left - lower index to swap
+     * @param right - higher index to swap
+     */
+    protected void swap( int left, int right) {
+        int tmp = array[left];
+        array[left] = array[right];
+        array[right] = tmp;
+    }
+
+    /**
      * Saves the results of sortig to the file using writer which is frislty generated. Once data has been entered, wrtier is closed.
      */
     public void saveResults(){
         BufferedWriter writer = generaBufferedWriter() ; 
         try {
-            StringBuilder msg = new StringBuilder("Avrage time of sroting: ").append(timeResult).append(" ms for ").append(this.getClass()).append("Array size: ").append(this.size).append(", number of repetitions: ").append(this.numberOfRepetitions).append(" , source: ").append(this.inputDataFailName != "" ? inputDataFailName : "generated");
+            StringBuilder msg = new StringBuilder("Avrage time of sroting: ").append(timeResult).append(" ms for ").append(this.getClass()).append("Array size: ").append(this.size).append(", number of repetitions: ").append(this.numberOfRepetitions).append(" , source: ").append(this.inputDataFileName != null? inputDataFileName : "generated");
             writer.write(msg.toString());
             writer.newLine();
         } catch (Exception e) {
@@ -216,30 +274,22 @@ public abstract class SortClass {
     }
 
     /**
-     * Method copies the content of generated or loaded array to second array and returns the array
-     * @return - returns newly created array with copie of content of the first array
+     * Method creates unsorted array based on the array. 
      */
-    protected int[] copyArray(int[] source) {
-        if (!checkArrayState())
-            return null;
-        int[] array = new int[source.length];
-        int i = 0;
-        for (int element : source) {
-            array[i] = element;
-            i++; 
-        }
+    public void createUnsortedArray() {
+        unsortedArray = copyArray(array); 
+    }
+
+
+
+/* GETTERS AND SETTERS */
+
+    public int[] getArray() {
         return array;
     }
 
-    protected boolean checkSortingProccess() {
-        for (int i = 0; i < array.length - 1; i++)
-            if (array[i] > array[i+1] )
-                return true;
-        return false;
-    }
-
-    public void createUnsortedArray() {
-        unsortedArray = copyArray(array); 
+    public int[] getUnsortedArray() {
+        return array;
     }
 
     /**
@@ -259,7 +309,7 @@ public abstract class SortClass {
      */
     protected void setFileName(String fileName) {
         if (!fileName.equals(""))
-            inputDataFailName = fileName; 
+            inputDataFileName = fileName; 
         else
             new RuntimeException("Invalid fileName");
     }
@@ -269,13 +319,5 @@ public abstract class SortClass {
             this.numberOfRepetitions = numberOfRepetitions;
         else
             this.numberOfRepetitions = 1;
-    }
-
-    public int[] getArray() {
-        return array;
-    }
-
-    public int[] getUnsortedArray() {
-        return array;
     }
 }
