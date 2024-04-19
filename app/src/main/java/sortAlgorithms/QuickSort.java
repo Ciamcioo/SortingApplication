@@ -9,7 +9,7 @@ public class QuickSort extends SortClass {
 
     private String typeOfData; 
     private int pivot;
-    private float[] floatArray,  unsortedFloatArray;
+    private float[] floatArray,  unsortedFloatArray, sortedFloatArray;
     private boolean stackOverFlow = false, fatalError = false;
 
     public QuickSort(int size, int pivot) {
@@ -209,6 +209,7 @@ public class QuickSort extends SortClass {
             sortingArrayState();
             if (fatalError = checkErrors(i)) 
                 break;
+            sortedArrayCopy();
             dataPreparation();
         }
 
@@ -282,6 +283,13 @@ public class QuickSort extends SortClass {
                     return false;
             return true;
         }
+    }
+    
+    private void sortedArrayCopy() {
+        if (checkIfDataTypeFloat(this.typeOfData)) 
+            sortedFloatArray = copyFloatArray(floatArray);           
+        else 
+            sortedArray = copyArray(array);
     }
 
     /**
@@ -378,6 +386,23 @@ public class QuickSort extends SortClass {
         } finally {
             closeStream(writer);
         }
+    }
+
+    @Override
+    public String printSortedArray() {
+        StringBuilder stringBuilder = new StringBuilder("[");
+        if (checkIfDataTypeFloat(this.typeOfData))
+            for (float element : sortedFloatArray) {
+                stringBuilder.append(element);
+                stringBuilder.append(" ");
+            } 
+        else
+            for (int element : sortedArray) {
+                stringBuilder.append(element);
+                stringBuilder.append(" ");
+            }
+        stringBuilder.append("]");
+        return stringBuilder.toString();
     }
 
 /* SETTERS */

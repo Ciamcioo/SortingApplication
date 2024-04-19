@@ -49,6 +49,8 @@ public class ShellSort extends SortClass {
             this.hibbardResultTime += (endTime - startTime);
             if (sortErrorChecker(i))
                 break;
+            sortedArray = copyArray(array);
+            dataPreparation();
         }
     }
 

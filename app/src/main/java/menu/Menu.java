@@ -52,7 +52,7 @@ public class Menu {
             case 4 -> enterArraySize(); 
             case 5 -> System.out.println("Current size of array: " + size);
             case 6 -> System.out.println(currentAlgorithm.printArray(currentAlgorithm.getUnsortedArray())); 
-            case 7 -> System.out.println(currentAlgorithm.printArray(currentAlgorithm.getUnsortedArray())); 
+            case 7 -> System.out.println(currentAlgorithm.printSortedArray());
             case 8 -> System.out.println("Current number of repetitions: " + numOfRepetition); 
             case 9 -> enterNumberOfRepetitions(); 
             case 10 -> App.exitApp(); 

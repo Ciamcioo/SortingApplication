@@ -5,7 +5,7 @@ import java.util.Random;
 
 public abstract class SortClass {
     protected int size = 0, numberOfRepetitions = 1;
-    protected int[] array = null, unsortedArray = null; 
+    protected int[] array = null, unsortedArray = null, sortedArray = null;
     protected String inputDataFileName;
     protected long timeResult = 0; 
     protected boolean fatalError = false;
@@ -131,6 +131,7 @@ public abstract class SortClass {
             sortingArrayState();
             if (fatalError = sortErrorChecker(i))
                 break;
+            sortedArray = copyArray(array);
             dataPreparation();
         }
 
@@ -200,6 +201,16 @@ public abstract class SortClass {
     public String printArray(int[] source) {
         StringBuilder stringBuilder = new StringBuilder("[");
         for (int element : source) {
+            stringBuilder.append(element);
+            stringBuilder.append(" ");
+        } 
+        stringBuilder.append("]");
+        return stringBuilder.toString();
+    }
+
+    public String printSortedArray() {
+        StringBuilder stringBuilder = new StringBuilder("[");
+        for (int element : sortedArray) {
             stringBuilder.append(element);
             stringBuilder.append(" ");
         } 
@@ -290,6 +301,10 @@ public abstract class SortClass {
 
     public int[] getUnsortedArray() {
         return array;
+    }
+
+    public int[] getSortedArray() {
+        return sortedArray;
     }
 
     /**
