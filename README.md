@@ -24,5 +24,6 @@ SortingApplication is an application that allows to sort different type of numer
 6. Open pull request
 
 ## License
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for more information
 ## Contact
 Created by [Jakub_Maciocha](https://github.com/Ciamcioo) - feel free to get in touch
