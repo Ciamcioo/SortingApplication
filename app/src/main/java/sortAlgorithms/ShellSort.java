@@ -17,17 +17,15 @@ public class ShellSort extends SortClass {
      * Method sorts both orginal and copy array and calculates the time of procedure with inputing to the user the time of both sorting and sorted array
      */
     @Override
-    public void sorting() {
+    public void sortingControler() {
         System.out.println("Shell class has two implementations of calculating the algorithm's gap to show time differences between those two algorithms");
-        if (array.length < 2000 && this.numberOfRepetitions < 10)
-            System.out.println("Both arrays before sorting: " + printArray(array)); 
+        sortingArrayState();
         sortAlgorithm();
-        shellResultTime = Math.floorDiv(shellResultTime, numberOfRepetitions) + 1;
-        hibbardResultTime = Math.floorDiv(hibbardResultTime, numberOfRepetitions) + 1;
+        shellResultTime = Math.floorDiv(shellResultTime, numberOfRepetitions);
+        hibbardResultTime = Math.floorDiv(hibbardResultTime, numberOfRepetitions);
+        sortingArrayState();
         System.out.println("Time of sorting with default gap in Shell algorithm: " + shellResultTime + " ms");
         System.out.println("Time of sorting with Hibbard gap in hibrad algorithm:  " + hibbardResultTime + " ms");
-        if (array.length < 2000 && this.numberOfRepetitions < 10)
-            System.out.println("Both arrays after sorting: " + printArray(array));
     }
 
     /**
@@ -36,30 +34,36 @@ public class ShellSort extends SortClass {
     @Override
     protected void sortAlgorithm() {
         for (int i = 0; i < this.numberOfRepetitions; i++) {
-            array = copyArray(unsortedArray);
             long startTime = System.currentTimeMillis();
             shellAlgorithm();
             long endTime = System.currentTimeMillis();
             this.shellResultTime += (endTime-startTime);
-            if (checkSortingProccess())
-                System.out.println("Process of sorting in repetition " + i + " went wrong!");
+            if (sortErrorChecker(i))
+                break;
             array = copyArray(unsortedArray);
-
             startTime = System.currentTimeMillis();
             hibardAlogrithm();
             endTime = System.currentTimeMillis();
             this.hibbardResultTime += (endTime - startTime);
-            if (checkSortingProccess())
-                System.out.println("Process of sorting in repetition " + i + " went wrong!");
+            if (sortErrorChecker(i))
+                break;
+            sortedArray = copyArray(array);
+            dataPreparation();
         }
     }
 
+    /**
+     * Method implements calculations of next intervals in Shell Algorithm with gap calcualted by Mr. Shell 
+     */
     private void shellAlgorithm() {
         for (int gap = array.length/2; gap > 0; gap/=2) 
             array = iterationWithDefineGap(array, gap);
         
     }
 
+    /**
+     * Method implements calculations of next intervals in Shell Algorithm with gap calcualted by Mr. Hibard
+     */
     private void hibardAlogrithm() {
         int gap = 0;
         for (int i = 2; gap != 1; i++) {
@@ -83,14 +87,17 @@ public class ShellSort extends SortClass {
         return array;
     }
 
+    /**
+     *  Method saves the results of Shell sorting to the file - result.txt. If an exception happens method handles it. No matter the result of try-catch block writer is closed.
+     */
     @Override
     public void saveResults() {
         BufferedWriter writer = generaBufferedWriter() ; 
         try {
-            StringBuilder msg = new StringBuilder("Avrage time of sroting: ").append(shellResultTime).append("for ").append(this.getClass()).append("- Shell interval. Array size: ").append(this.size).append(", number of repetitions: ").append(this.numberOfRepetitions).append(" , source: ").append(this.inputDataFailName != null ? inputDataFailName : "generated");
+            StringBuilder msg = new StringBuilder("Avrage time of sroting: ").append(shellResultTime).append(" for ").append(this.getClass()).append(" - Shell interval. Array size: ").append(this.size).append(", number of repetitions: ").append(this.numberOfRepetitions).append(" , source: ").append(this.inputDataFileName != null ? inputDataFileName : "generated");
             writer.write(msg.toString());
             writer.newLine();
-            msg = new StringBuilder("Avrage time of sroting: ").append(hibbardResultTime).append(" for ").append(this.getClass()).append("- Hibard interval. Array size: ").append(this.size).append(", number of repetitions: ").append(this.numberOfRepetitions).append(" , source: ").append(this.inputDataFailName != null ? inputDataFailName : "generated");
+            msg = new StringBuilder("Avrage time of sroting: ").append(hibbardResultTime).append(" for ").append(this.getClass()).append(" - Hibard interval. Array size: ").append(this.size).append(", number of repetitions: ").append(this.numberOfRepetitions).append(" , source: ").append(this.inputDataFileName != null ? inputDataFileName : "generated");
             writer.write(msg.toString());
             writer.newLine();
         } catch (Exception e) {

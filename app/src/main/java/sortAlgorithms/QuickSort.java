@@ -9,8 +9,8 @@ public class QuickSort extends SortClass {
 
     private String typeOfData; 
     private int pivot;
-    private float[] floatArray,  unsortedFloatArray;
-    private boolean stackOverFlow = false;
+    private float[] floatArray,  unsortedFloatArray, sortedFloatArray;
+    private boolean stackOverFlow = false, fatalError = false;
 
     public QuickSort(int size, int pivot) {
         super(size);
@@ -66,7 +66,7 @@ public class QuickSort extends SortClass {
             return;
         try {
             setSize(Integer.parseInt(reader.readLine()));
-            floatArray = createFloatArray();
+            floatArray =  new float[this.size];
             for (int i = 0; reader.ready() && i < this.size; i++)   
                 floatArray[i] = Float.parseFloat(reader.readLine());
         } catch (NumberFormatException | IOException e) {
@@ -74,14 +74,6 @@ public class QuickSort extends SortClass {
         } finally{
             closeStream(reader);
         }
-    }
-
-    /**
-     * Method which genrates float array in case user specifies data type as float  
-     * @return - float array of specific size
-     */
-    private float[] createFloatArray() {
-        return new float[this.size];
     }
 
     /**
@@ -96,7 +88,7 @@ public class QuickSort extends SortClass {
      * Method generates random float data and insert it into the float array
      */
     private float[] generateFloatsArray(int size) {
-        float[] array = createFloatArray();  
+        float[] array =  new float[size];
         Random rand_float = new Random();
         Random rand_int = new Random();
         for (int i = 0; i < array.length; i++) 
@@ -183,10 +175,8 @@ public class QuickSort extends SortClass {
             quikcSorting(pod+1, right);
             return;
         } catch (StackOverflowError e) {
-            if (!stackOverFlow) {
+            if (!stackOverFlow) 
                 stackOverFlow = !stackOverFlow;
-                System.out.println("Unfortuanately stac couldn't contain more call of methods! Sorthing eneded with a failure!");
-            }
             return;
         }
     }
@@ -208,17 +198,117 @@ public class QuickSort extends SortClass {
         }
     }
 
+    /**
+     * Method implemeneting srotingControler for QuikcSort class. Enabling to mesure time of sorting and chack all types of error conected with this type of sorting
+     */
+    @Override
+    public void sortingControler() {
+        for (int i = 0; i < numberOfRepetitions; i++) {
+            sortingArrayState();
+            timeResult += timeMesurment(); 
+            sortingArrayState();
+            if (fatalError = checkErrors(i)) 
+                break;
+            sortedArrayCopy();
+            dataPreparation();
+        }
+
+        if (!fatalError) {
+            timeResult = Math.floorDiv(timeResult, numberOfRepetitions);
+            System.out.println("Average time of sroting: " + timeResult + " ms for " + numberOfRepetitions + " number of repetitions");
+        }
+    }
 
     /**
-     * Invokes the quickSorting algorithm. Additional to check if type of array is float.   
+     * Invokes the quickSorting algorithm.
      */
     @Override
     protected void sortAlgorithm() {
-        if (checkIfDataTypeFloat(this.typeOfData))
-            floatArray = copyFloatArray(unsortedFloatArray);
-        else
-            array = copyArray(unsortedArray); 
         quikcSorting(0, size-1);
+    }
+
+    /**
+     * Method checks if stacOverflow excpetion occured during sorting and if data was sorted correctly
+     * @param repetition - current repetition of sorting
+     * @return - returns true if error occured, false if not
+     */
+    private boolean checkErrors(int repetition) {
+        if (stackOverFlow) {
+            System.out.println("Exception stack overflow occured");
+            return true;
+        }
+        else if (sortErrorChecker(repetition)) { 
+            System.out.println("Array was not sorted correctly");
+            return true;
+        }
+        else 
+            return false;
+       
+    }
+
+    @Override
+    protected boolean sortErrorChecker(int iteration) {
+        boolean result;
+        if (checkIfDataTypeFloat(this.typeOfData)) {
+            result = !errorFloatAlgorithm();
+            if (result)
+                System.out.println("Incorect sorting repetition number: " + iteration);
+            return result;
+        }
+        else {
+            result = !errorAlgorithm();
+            if (result)
+                System.out.println("Incorect sorting repetition number: " + iteration);
+            return result;
+        }
+    }
+
+    private boolean errorFloatAlgorithm() {
+        for (int i = 0; i < floatArray.length-1; i++) 
+            if (floatArray[i] > floatArray[i+1])
+                return false;
+        return true; 
+    }
+
+    protected boolean errorAlgorithm() {
+        if (checkIfDataTypeFloat(this.typeOfData)) {
+            for (int i = 0; i < floatArray.length-1; i++)
+                if (floatArray[i] > floatArray[i+1])
+                    return false;
+            return true;
+        }
+        else {
+            for (int i = 0; i < array.length-1; i++)
+                if (array[i] > array[i+1])
+                    return false;
+            return true;
+        }
+    }
+    
+    private void sortedArrayCopy() {
+        if (checkIfDataTypeFloat(this.typeOfData)) 
+            sortedFloatArray = copyFloatArray(floatArray);           
+        else 
+            sortedArray = copyArray(array);
+    }
+
+    /**
+     * Method prepares data to be sorted, based on the type of array and the source of numbers. 
+     */
+    @Override
+    protected void dataPreparation() {
+       if (checkIfDataTypeFloat(this.typeOfData)) {
+            if (this.inputDataFileName != null )
+                floatArray = copyFloatArray(unsortedFloatArray);
+            else
+                floatArray = generateFloatsArray(this.size);
+       } 
+       else {
+            if (this.inputDataFileName != null) 
+                array = copyArray(unsortedArray);
+            else
+                array = generateDataForArray(this.size);
+       }
     }
 
     /**
@@ -256,12 +346,15 @@ public class QuickSort extends SortClass {
     private float[] copyFloatArray(float[] source) {
         if (!checkArrayState())
             return null; 
-        float[] floatArray = createFloatArray(); 
+        float[] floatArray = new float[this.size];
         for (int i = 0; i < source.length; i++) 
             floatArray[i] = source[i];
         return floatArray; 
     }
 
+    /**
+     * Copies array to unsorted array based on its type
+     */
     @Override
     public void createUnsortedArray() {
         if (checkIfDataTypeFloat(this.typeOfData))
@@ -270,20 +363,49 @@ public class QuickSort extends SortClass {
             unsortedArray = copyArray(array); 
     }
 
-    protected boolean checkSortingProccess() {
-        if (checkIfDataTypeFloat(this.typeOfData)) {
-            for (int i = 0; i < floatArray.length-1; i++)
-                if (floatArray[i] > floatArray[i+1])
-                    return true;
-            return false;
-        }
-        else {
-            for (int i = 0; i < array.length-1; i++)
-                if (array[i] > array[i+1])
-                    return true;
-            return false;
+    /**
+     * Method check if the string passed as an argumetn is "float", which indicates that data type of object should be float.
+     * @param typeOfData - string which determins type of data of object
+     * @return - return true if string is flaot so data type of object should be float, returns false if string isn't float 
+     */
+    private static boolean checkIfDataTypeFloat(String typeOfData) {
+        return typeOfData.equals("float");
+    }
+
+    /**
+     * Method saves time of sorting into the result.txt file.
+     */
+    public void saveResults() {
+        BufferedWriter writer = generaBufferedWriter() ; 
+        try {
+            StringBuilder msg = new StringBuilder("Avrage time of sroting: ").append(timeResult).append(" ms for ").append(this.getClass()).append("Array size: ").append(this.size).append(", number of repetitions: ").append(this.numberOfRepetitions).append(" , source: ").append(this.inputDataFileName != null ? inputDataFileName : "generated").append(" type of data: ").append(this.typeOfData);
+            writer.write(msg.toString());
+            writer.newLine();
+        } catch (Exception e) {
+            System.out.println("Line cound't be saved to file");
+        } finally {
+            closeStream(writer);
         }
     }
+
+    @Override
+    public String printSortedArray() {
+        StringBuilder stringBuilder = new StringBuilder("[");
+        if (checkIfDataTypeFloat(this.typeOfData))
+            for (float element : sortedFloatArray) {
+                stringBuilder.append(element);
+                stringBuilder.append(" ");
+            } 
+        else
+            for (int element : sortedArray) {
+                stringBuilder.append(element);
+                stringBuilder.append(" ");
+            }
+        stringBuilder.append("]");
+        return stringBuilder.toString();
+    }
+
+/* SETTERS */
 
     public void setPivot(int  pivot) {
         this.pivot = pivot;
@@ -294,23 +416,6 @@ public class QuickSort extends SortClass {
             this.typeOfData = "float";
         else
             this.typeOfData = "int";
-    }
-
-    private static boolean checkIfDataTypeFloat(String typeOfData) {
-        return typeOfData.equals("float");
-    }
-    
-    public void saveResults() {
-        BufferedWriter writer = generaBufferedWriter() ; 
-        try {
-            StringBuilder msg = new StringBuilder("Avrage time of sroting: ").append(timeResult).append(" ms for ").append(this.getClass()).append("Array size: ").append(this.size).append(", number of repetitions: ").append(this.numberOfRepetitions).append(" , source: ").append(this.inputDataFailName != null ? inputDataFailName : "generated").append("tyep of data: ").append(this.typeOfData);
-            writer.write(msg.toString());
-            writer.newLine();
-        } catch (Exception e) {
-            System.out.println("Line cound't be saved to file");
-        } finally {
-            closeStream(writer);
-        }
     }
 }
 

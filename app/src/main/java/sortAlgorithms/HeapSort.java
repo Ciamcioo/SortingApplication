@@ -37,6 +37,7 @@ public class HeapSort extends SortClass {
     private void fixHeapDown(int rootOnInv, int readuction)  {
         int root = rootOnInv;
         int leftDescentent = root * 2 + 1, rightDescedant = root * 2 + 2;
+
         if (leftDescentent < array.length - readuction && array[root] < array[leftDescentent]) 
             root = leftDescentent;
         
