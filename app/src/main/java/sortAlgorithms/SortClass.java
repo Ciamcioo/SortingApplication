@@ -158,7 +158,7 @@ public abstract class SortClass {
             if(array != null)
                 array = copyArray(unsortedArray);
         }
-        timeResult = Math.ceilDiv(timeResult, numberOfRepetitions);
+        timeResult = Math.floorDiv(timeResult, numberOfRepetitions) + 1;
         System.out.println("Average time of sroting: " + timeResult + " ms for " + numberOfRepetitions + " number of repetitions");
     }
 

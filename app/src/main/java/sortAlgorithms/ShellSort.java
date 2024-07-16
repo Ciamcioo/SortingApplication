@@ -22,8 +22,8 @@ public class ShellSort extends SortClass {
         if (array.length < 2000 && this.numberOfRepetitions < 10)
             System.out.println("Both arrays before sorting: " + printArray(array)); 
         sortAlgorithm();
-        shellResultTime = Math.ceilDiv(shellResultTime, numberOfRepetitions);
-        hibbardResultTime = Math.ceilDiv(hibbardResultTime, numberOfRepetitions);
+        shellResultTime = Math.floorDiv(shellResultTime, numberOfRepetitions) + 1;
+        hibbardResultTime = Math.floorDiv(hibbardResultTime, numberOfRepetitions) + 1;
         System.out.println("Time of sorting with default gap in Shell algorithm: " + shellResultTime + " ms");
         System.out.println("Time of sorting with Hibbard gap in hibrad algorithm:  " + hibbardResultTime + " ms");
         if (array.length < 2000 && this.numberOfRepetitions < 10)

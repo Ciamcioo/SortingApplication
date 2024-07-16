@@ -12,3 +12,6 @@ app/src/main/resources/result.txt
 
 # Ingore .swp files from direcotries
 *.swp
+
+### INGORE VS CODE FILES ###
+.vscode
